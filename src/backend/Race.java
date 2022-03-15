@@ -32,6 +32,7 @@ public class Race {
         }
         checkCrash();
         updateCarList();
+        updateCarPositions();
     }
 
     public void updateCarList() {
@@ -49,6 +50,12 @@ public class Race {
             if (!hasChanged) {
                 isFinished = true;
             }
+        }
+    }
+
+    public void updateCarPositions() {
+        for (int i = 0; i < cars.size(); i++) {
+            cars.get(i).updatePosition(i + 1);
         }
     }
 
