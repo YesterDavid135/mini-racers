@@ -1,9 +1,6 @@
 package data;
 
-import backend.Car;
-import backend.Driver;
-import backend.Track;
-import backend.Weather;
+import backend.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +29,28 @@ public class DataManager {
         }
         Collections.shuffle(drivers);
         return drivers;
+    }
+
+    //TODO: Optimize method
+    public Driver readRandomSafetycarDriver() {
+        ArrayList<Driver> drivers = new ArrayList<>();
+        try {
+            File file = new File("resources/safetycarDrivers.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String[] driverInfo = scanner.nextLine().split(",");
+                String driverName = driverInfo[0];
+                int driverNumber = Integer.parseInt(driverInfo[1]);
+                Driver driver = new Driver(driverName, driverNumber);
+                drivers.add(driver);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        Collections.shuffle(drivers);
+        return drivers.get(0);
     }
 
     //TODO: Optimize method
@@ -66,6 +85,11 @@ public class DataManager {
             cars.add(car);
         }
         return cars;
+    }
+
+    public Safetycar generateSafetycar(double laptimeReference) {
+        Driver driver = readRandomSafetycarDriver();
+        return new Safetycar(driver, 0, laptimeReference, 0);
     }
 
     public Weather generateRandomWeather() {

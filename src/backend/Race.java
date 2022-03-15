@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class Race {
     private final Track track;
     private final ArrayList<Car> cars;
+    private final Safetycar safetycar;
     private ArrayList<Double> deltaList;
     private int lapsLeft;
 
-    public Race(Track track, ArrayList<Car> cars) {
+    public Race(Track track, ArrayList<Car> cars, Safetycar safetycar) {
         this.track = track;
         this.cars = cars;
+        this.safetycar = safetycar;
         this.lapsLeft = track.getAmountLaps();
         updateDeltaList();
     }
