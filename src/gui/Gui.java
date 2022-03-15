@@ -22,7 +22,7 @@ public class Gui extends JFrame implements ActionListener {
     private final JLabel labelWeather = new JLabel();
     private final JButton buttonNextLap = new JButton("NEXT LAP");
 
-    private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Number", "Name", "Last Lap" ,"Delta"}, 0);
+    private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap" ,"Delta"}, 0);
     private final RaceManager raceManager;
 
     public Gui(RaceManager raceManager) {
@@ -73,6 +73,7 @@ public class Gui extends JFrame implements ActionListener {
         for (int i = 0; i < raceManager.getRace().getCars().size(); i++) {
             Vector<String> row = new Vector<>();
             row.addElement("P" + raceManager.getRace().getCars().get(i).getPosition());
+            row.addElement("P" + raceManager.getRace().getCars().get(i).getStartPosition());
             row.addElement("#" + raceManager.getRace().getCars().get(i).getDriver().getNumber());
             row.addElement(raceManager.getRace().getCars().get(i).getDriver().getName());
             row.addElement(getFormattedLaptime(raceManager.getRace().getCars().get(i).getLaptime()));

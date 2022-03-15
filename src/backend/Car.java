@@ -2,6 +2,7 @@ package backend;
 
 public class Car {
     private final Driver driver;
+    private final int startPosition;
     private int position;
     private double laptime; //in seconds: 100.0 = 1:40.0
     private double laptimeReference;
@@ -11,9 +12,10 @@ public class Car {
     private double tyreCondition; //100% = 1.0, 0% = 0.0
     private double crashChance; //0% = 0, 100% = 100
 
-    public Car(Driver driver, int position, double laptimeReference, double racetimeTotal) {
+    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal) {
         this.driver = driver;
-        this.position = position;
+        this.startPosition = startPosition;
+        this.position = startPosition;
         this.laptime = 0;
         this.laptimeReference = laptimeReference;
         this.racetimeTotal = racetimeTotal;
@@ -21,6 +23,10 @@ public class Car {
         this.damage = 0;
         this.tyreCondition = 1;
         this.crashChance = 0;
+    }
+
+    public void updatePosition(int position) {
+        this.position = position;
     }
 
     public void updateLaptime(double weatherInfluence) {
@@ -66,6 +72,14 @@ public class Car {
         return driver;
     }
 
+    public int getStartPosition() {
+        return startPosition;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
     public double getLaptime() {
         return laptime;
     }
@@ -88,9 +102,5 @@ public class Car {
 
     public double getCrashChance() {
         return crashChance;
-    }
-
-    public int getPosition() {
-        return position;
     }
 }
