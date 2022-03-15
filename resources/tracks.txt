@@ -1,0 +1,21 @@
+Bahrain,91.447,57
+Jeddah,90.734,50
+Melbourne,84.125,58
+Imola,75.484,63
+Barcelona,78.149,66
+Monaco,72.909,78
+Baku,103.009,51
+Gilles-Villeneuve,73.078,70
+Silverstone,87.097,52
+Red Bull Ring,65.619,71
+Paul Ricard,92.740,53
+Hungaroring,76.627,70
+Spa,106.286,44
+Zandvoort,71.097,72
+Monza,81.046,53
+Singapore,101.905,61
+Suzuka,90.983,53
+COTA,96.169,56
+Mexico,77.774,71
+Interlagos,70.540,71
+Yas Marina,86.103,58
