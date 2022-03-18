@@ -17,4 +17,12 @@ public class RaceManager {
     public Race getRace() {
         return race;
     }
+
+    public ArrayList<Car> getCrashedCarsThisRound(){
+        return race.getCrashedCarsThisRound();
+    }
+
+    public int getLapsLeft(){
+        return race.getLapsLeft();
+    }
 }

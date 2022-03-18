@@ -25,6 +25,8 @@ public class Gui extends JFrame implements ActionListener {
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap" ,"Delta"}, 0);
     private final RaceManager raceManager;
 
+    private final Log logGui;
+
     public Gui(RaceManager raceManager) {
         this.raceManager = raceManager;
 
@@ -61,6 +63,7 @@ public class Gui extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
+        logGui = new Log(raceManager);
         reloadGui();
     }
 
@@ -118,6 +121,7 @@ public class Gui extends JFrame implements ActionListener {
         if (e.getSource() == this.buttonNextLap) {
             raceManager.getRace().nextLap();
             reloadGui();
+            logGui.reloadGui();
         }
     }
 }

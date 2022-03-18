@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Race {
     private final Track track;
     private final ArrayList<Car> cars;
+    private final ArrayList<Car> crashedCars = new ArrayList<>();
+    private ArrayList<Car> crashedCarsThisRound = new ArrayList<>();
     private ArrayList<Double> deltaList;
     private int lapsLeft;
 
@@ -68,19 +70,20 @@ public class Race {
     }
 
     public void checkCrash() {
-        ArrayList<Integer> crashedCarsIndex = new ArrayList<>();
-        for (int i = 0; i < cars.size(); i++) {
-            double crashChance = cars.get(i).getCrashChance();
+        this.crashedCarsThisRound = new ArrayList<>();
+        for (Car car : cars) {
+            double crashChance = car.getCrashChance();
             double randomValue = Math.random() * 100;
             if (crashChance >= randomValue) {
-                crashedCarsIndex.add(i);
-                System.out.println(cars.get(i).getDriver().getName() + " crashed with " + lapsLeft + " laps left. Crash Probability: " + cars.get(i).getCrashChance());
+                crashedCarsThisRound.add(car);
+                crashedCars.add(car);
+                System.out.println(car.getDriver().getName() + " crashed with " + lapsLeft + " laps left. Crash Probability: " + car.getCrashChance());
             }
         }
-        for (int crashedCarIndex : crashedCarsIndex) {
-            //TODO: Fix IndexOutOfBounds bug
-            cars.remove(cars.get(crashedCarIndex));
+        for (Car car : crashedCarsThisRound){
+            cars.remove(car);
         }
+
     }
 
     public int getLapsLeft() {
@@ -89,6 +92,14 @@ public class Race {
 
     public ArrayList<Car> getCars() {
         return cars;
+    }
+
+    public ArrayList<Car> getCrashedCars() {
+        return crashedCars;
+    }
+
+    public ArrayList<Car> getCrashedCarsThisRound() {
+        return crashedCarsThisRound;
     }
 
     public ArrayList<Double> getDeltaList() {
