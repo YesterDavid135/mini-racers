@@ -32,7 +32,14 @@ public class Race {
             car.updateCrashChance(track.getWeather().getRiskMultiplier());
             car.updateRacetimeTotal();
         }
-        checkCrash();
+        if (isSafetycarDeployed()) {
+            safetycar.subtractLapsDeployedLeft();
+        } else {
+            if (cars.get(0) == safetycar) {
+                removeSafetycarFromCarList();
+            }
+            checkCrash();
+        }
         updateCarList();
         updateCarPositions();
     }
@@ -77,12 +84,31 @@ public class Race {
             if (crashChance >= randomValue) {
                 crashedCarsIndex.add(i);
                 System.out.println(cars.get(i).getDriver().getName() + " crashed with " + lapsLeft + " laps left. Crash Probability: " + cars.get(i).getCrashChance());
+                deploySafetycar();
+                break;
             }
         }
         for (int crashedCarIndex : crashedCarsIndex) {
             //TODO: Fix IndexOutOfBounds bug
             cars.remove(cars.get(crashedCarIndex));
         }
+    }
+
+    public void deploySafetycar() {
+        safetycar.deploySafetycar();
+        addSafetycarToCarList();
+    }
+
+    public void addSafetycarToCarList() {
+        cars.add(0, safetycar);
+    }
+
+    public void removeSafetycarFromCarList() {
+        cars.remove(0);
+    }
+
+    public boolean isSafetycarDeployed() {
+        return safetycar.getLapsDeployedLeft() > 0;
     }
 
     public int getLapsLeft() {

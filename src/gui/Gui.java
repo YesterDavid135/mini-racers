@@ -20,6 +20,7 @@ public class Gui extends JFrame implements ActionListener {
     private final JLabel labelTrack = new JLabel();
     private final JLabel labelFastestLap = new JLabel();
     private final JLabel labelWeather = new JLabel();
+    private final JLabel labelSafetycarDeployed = new JLabel();
     private final JButton buttonNextLap = new JButton("NEXT LAP");
 
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap" ,"Delta"}, 0);
@@ -47,6 +48,10 @@ public class Gui extends JFrame implements ActionListener {
         labelWeather.setText("Weather: " + raceManager.getRace().getTrack().getWeather().getWeatherType());
         labelWeather.setBounds(10,475,200,50);
         frame.add(labelWeather);
+
+        labelSafetycarDeployed.setText("");
+        labelSafetycarDeployed.setBounds(10,505,200,50);
+        frame.add(labelSafetycarDeployed);
 
         buttonNextLap.setBounds(370,500,100,50);
         buttonNextLap.addActionListener(this);
@@ -87,6 +92,11 @@ public class Gui extends JFrame implements ActionListener {
         }
         raceTable.setModel(model);
         labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
+        if (raceManager.getRace().isSafetycarDeployed()) {
+            labelSafetycarDeployed.setText("SAFETYCAR DEPLOYED");
+        } else {
+            labelSafetycarDeployed.setText("");
+        }
     }
 
     public String getFormattedLaptime(double laptime) {
