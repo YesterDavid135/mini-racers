@@ -2,6 +2,7 @@ package starter;
 
 import backend.RaceManager;
 import gui.Gui;
+import gui.Log;
 
 public class Application {
 
