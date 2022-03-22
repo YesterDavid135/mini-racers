@@ -1,6 +1,7 @@
 package starter;
 
 import backend.RaceManager;
+import gui.ControlView;
 import gui.RaceView;
 
 public class Application {

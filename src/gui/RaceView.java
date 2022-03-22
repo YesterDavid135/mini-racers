@@ -68,7 +68,13 @@ public class RaceView extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
-        crashView = new CrashView(raceManager);
+        crashView = new CrashView(raceManager,
+                frame.getX() + frame.getWidth() + 1,
+                frame.getY());
+
+        new ControlView(raceManager,
+                frame.getX(),
+                frame.getY() + frame.getHeight() + 1);
         reloadGui();
     }
 

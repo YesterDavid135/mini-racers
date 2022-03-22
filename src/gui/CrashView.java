@@ -22,12 +22,13 @@ public class CrashView extends JFrame implements ActionListener {
 
     private final RaceManager raceManager;
 
-    public CrashView(RaceManager raceManager){
+    public CrashView(RaceManager raceManager, int posX, int posY ){
         this.raceManager = raceManager;
 
         frame.setSize(500,600);
         frame.setTitle("Crashed Cars");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLocation(posX, posY);
 
         crashTable.setModel(model);
         crashTable.setRowHeight(30);
