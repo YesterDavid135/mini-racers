@@ -21,6 +21,7 @@ public class Race {
 
     public void nextLap() {
         lapsLeft--;
+        this.crashedCarsThisRound = new ArrayList<>();
         updateCarStats();
         updateDeltaList();
     }
@@ -79,7 +80,6 @@ public class Race {
     }
 
     public void checkCrash() {
-        this.crashedCarsThisRound = new ArrayList<>();
         for (Car car : cars) {
             double crashChance = car.getCrashChance();
             double randomValue = Math.random() * 100;

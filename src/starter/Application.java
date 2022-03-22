@@ -1,8 +1,7 @@
 package starter;
 
 import backend.RaceManager;
-import gui.Gui;
-import gui.Log;
+import gui.RaceView;
 
 public class Application {
 
@@ -12,6 +11,6 @@ public class Application {
 
     public static void startRace() {
         RaceManager raceManager = new RaceManager();
-        new Gui(raceManager);
+        new RaceView(raceManager);
     }
 }
