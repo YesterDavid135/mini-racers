@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 public class CrashView extends JFrame implements ActionListener {
@@ -50,12 +51,20 @@ public class CrashView extends JFrame implements ActionListener {
             Vector<String> row = new Vector<>();
             row.addElement(car.getDriver().getName());
             row.addElement(lapsleft + " Laps");
-            row.addElement(car.getCrashChance() + "%");
+            row.addElement(getFormattedCrashChance(car.getCrashChance()) + "%");
 
             model.addRow(row);
         }
+    }
 
-
+    public String getFormattedCrashChance(double crashChance) {
+        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (crashChance < 1) {
+            return "0" + df.format(crashChance);
+        } else {
+            return df.format(crashChance);
+        }
     }
 
         @Override
