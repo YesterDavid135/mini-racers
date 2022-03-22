@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class Log extends JFrame implements ActionListener {
+public class CrashView extends JFrame implements ActionListener {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel = new JPanel();
@@ -21,11 +21,11 @@ public class Log extends JFrame implements ActionListener {
 
     private final RaceManager raceManager;
 
-    public Log(RaceManager raceManager){
+    public CrashView(RaceManager raceManager){
         this.raceManager = raceManager;
 
         frame.setSize(500,600);
-        frame.setTitle("Mini Racers");
+        frame.setTitle("Crashed Cars");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         crashTable.setModel(model);

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
-public class Gui extends JFrame implements ActionListener {
+public class RaceView extends JFrame implements ActionListener {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel = new JPanel();
@@ -26,9 +26,9 @@ public class Gui extends JFrame implements ActionListener {
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap" ,"Delta"}, 0);
     private final RaceManager raceManager;
 
-    private final Log logGui;
+    private final CrashView crashView;
 
-    public Gui(RaceManager raceManager) {
+    public RaceView(RaceManager raceManager) {
         this.raceManager = raceManager;
 
         frame.setSize(500,600);
@@ -68,7 +68,7 @@ public class Gui extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
-        logGui = new Log(raceManager);
+        crashView = new CrashView(raceManager);
         reloadGui();
     }
 
@@ -131,7 +131,7 @@ public class Gui extends JFrame implements ActionListener {
         if (e.getSource() == this.buttonNextLap) {
             raceManager.getRace().nextLap();
             reloadGui();
-            logGui.reloadGui();
+            crashView.reloadGui();
         }
     }
 }
