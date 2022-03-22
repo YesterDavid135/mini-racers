@@ -1,5 +1,9 @@
 package backend;
 
+import backend.tyre.Tyre;
+
+import java.util.ArrayList;
+
 public class Car {
     private final Driver driver;
     private final int startPosition;
@@ -9,10 +13,10 @@ public class Car {
     private double racetimeTotal;
     private double fuel; //fuel in L, max = 50.0L
     private double damage; //no damage = 0.0, destroyed = 1.0
-    private double tyreCondition; //100% = 1.0, 0% = 0.0
+    private ArrayList<Tyre> tyres;
     private double crashChance; //0% = 0, 100% = 100
 
-    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal) {
+    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, ArrayList<Tyre> tyres) {
         this.driver = driver;
         this.startPosition = startPosition;
         this.position = startPosition;
@@ -21,7 +25,7 @@ public class Car {
         this.racetimeTotal = racetimeTotal;
         this.fuel = 50;
         this.damage = 0;
-        this.tyreCondition = 1;
+        this.tyres = tyres;
         this.crashChance = 0;
     }
 
@@ -33,7 +37,7 @@ public class Car {
         double staminaInfluence = (1 - driver.getStamina()) / 100;
         double skillInfluence = (1 - driver.getSkill()) / 100;
         double damageInluence = damage / 50;
-        double tyreConditionInfluence = (1 - tyreCondition) / 50;
+        double tyreConditionInfluence = (1 - getCombinedTyreCondition()) / 50;
         double randomValue = Math.random() / 150;
         laptime = laptimeReference * (1 + staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence + randomValue) * weatherInfluence;
     }
@@ -51,12 +55,9 @@ public class Car {
         }
     }
 
-    public void updateTyreCondition() {
-        double updatedTyreCondition = tyreCondition - 0.03  - ((1 - driver.getSkill()) / 100);
-        if (updatedTyreCondition > 0) {
-            tyreCondition = updatedTyreCondition;
-        } else {
-            tyreCondition = 0;
+    public void updateTyres(double driverSkill) {
+        for (Tyre tyre : tyres) {
+            tyre.updateTyreCondition(driverSkill);
         }
     }
 
@@ -64,8 +65,16 @@ public class Car {
         double staminaInfluence = (1 - driver.getStamina()) / 4; //up to 0.25% per lap
         double skillInfluence = (1 - driver.getSkill()) / 8; //up to 0.125% per lap
         double damageInluence = damage / 8; //up to 0.125% per lap
-        double tyreConditionInfluence = (1 - tyreCondition) / 2; //up to 0.5% per lap
+        double tyreConditionInfluence = (1 - getCombinedTyreCondition()) / 2; //up to 0.5% per lap
         crashChance = (staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence) * riskMultiplier;
+    }
+
+    public double getCombinedTyreCondition() {
+        double combinedTyreCondition = 0;
+        for (Tyre tyre : tyres) {
+            combinedTyreCondition += tyre.getTyreCondition();
+        }
+        return combinedTyreCondition / 4;
     }
 
     public Driver getDriver() {
@@ -94,10 +103,6 @@ public class Car {
 
     public double getDamage() {
         return damage;
-    }
-
-    public double getTyreCondition() {
-        return tyreCondition;
     }
 
     public double getCrashChance() {
