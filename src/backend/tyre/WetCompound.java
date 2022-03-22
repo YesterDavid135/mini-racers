@@ -5,7 +5,7 @@ public class WetCompound extends Tyre {
     public WetCompound() {
         super();
         setCompoundInfluence(1.05);
-        setRainTyre(false);
+        setRainTyre(true);
     }
 
     public void updateTyreCondition(double driverSkill) {

@@ -110,21 +110,18 @@ public class DataManager {
     public ArrayList<Tyre> generateTyres(String weatherType) {
         ArrayList<Tyre> tyres = new ArrayList<>();
         if (weatherType.equals("Wet")) {
-            Tyre wetTyre = new WetCompound();
             for (int i = 0; i < 4; i++) {
-                tyres.add(wetTyre);
+                tyres.add(new WetCompound());
             }
         } else {
             double randomValue = Math.random();
             if (randomValue > 0.5) {
-                Tyre softTyre = new SoftCompound();
                 for (int i = 0; i < 4; i++) {
-                    tyres.add(softTyre);
+                    tyres.add(new SoftCompound());
                 }
             } else {
-                Tyre hardTyre = new HardCompound();
                 for (int i = 0; i < 4; i++) {
-                    tyres.add(hardTyre);
+                    tyres.add(new HardCompound());
                 }
             }
         }
