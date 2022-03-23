@@ -140,6 +140,7 @@ public class RaceView extends JFrame implements ActionListener {
             raceManager.getRace().nextLap();
             reloadGui();
             crashView.reloadGui();
+            controlView.updateData();
         }
     }
 }

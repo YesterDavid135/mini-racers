@@ -1,11 +1,14 @@
 package gui;
 
+import backend.RaceManager;
+import backend.tyre.Tyre;
+import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import backend.RaceManager;
-import net.miginfocom.swing.*;
+import java.text.DecimalFormat;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -13,14 +16,33 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 //
 // Project Structure -> Project Settings -> Modules -> Mini Racers -> Dependencies -> + -> library -> Java -> lib/miglayout-swing.jar UND lib/miglayout-core.jar hinzuefüge und denn sätts go
 
-public class ControlView  extends JPanel implements ActionListener {
+public class ControlView extends JPanel implements ActionListener {
 
-    private final JFrame frame = new JFrame();
+    private final JLabel[] tyreLabels = new JLabel[4];
+    private final RaceManager raceManager;
+    private JLabel tyreType;
 
-    public ControlView(RaceManager raceManager, int posX, int posY ) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    private JLabel fuelLabel;
+    private JProgressBar fuelBar;
+    private JButton refuelButton;
+    private JButton reTyreButton;
+    private JSlider fuelSlider;
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JPanel panel;
+    private JList tyreList;
+
+    public ControlView(RaceManager raceManager, int posX, int posY) {
+        this.raceManager = raceManager;
         initComponents();
 
-        frame.setSize(400,250);
+        JFrame frame = new JFrame();
+        frame.setSize(400, 250);
         frame.setTitle("Pitstop");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocation(posX, posY);
@@ -29,95 +51,130 @@ public class ControlView  extends JPanel implements ActionListener {
 
         frame.setVisible(true);
 
-
+        updateData();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void updateData() {
+        updateTyre();
+        updateFuel();
+    }
 
+    private void updateFuel() {
+        double fuel = raceManager.getFuelLeft();
+
+        fuelLabel.setText(getFormattedDouble(fuel) + "L / 50L");
+        fuelBar.setValue((int) fuel);
+    }
+
+    private void updateTyre() {
+        Tyre[] tyres = raceManager.getTyres();
+
+        tyreType.setText("Current Compound: " + tyres[0].getTyreType().toString());
+
+        for (int i = 0; i < 4; i++) {
+            tyreLabels[i].setText(getFormattedDouble(tyres[i].getTyreCondition() * 100) + "%");
+        }
+    }
+
+    public String getFormattedDouble(double input) {
+        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (input < 1) {
+            return "0" + df.format(input);
+        } else {
+            return df.format(input);
+        }
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel = new JPanel();
-        label5 = new JLabel();
-        label1 = new JLabel();
-        label3 = new JLabel();
-        label4 = new JLabel();
-        label6 = new JLabel();
-        label7 = new JLabel();
-        button1 = new JButton();
-        button2 = new JButton();
-        slider1 = new JSlider();
-        list1 = new JList();
+        tyreType = new JLabel();
+        fuelLabel = new JLabel();
+        var tyreFL = new JLabel();
+        this.tyreLabels[0] = tyreFL;
+        var tyreFR = new JLabel();
+        this.tyreLabels[1] = tyreFR;
+        fuelBar = new JProgressBar();
+        var tyreRL = new JLabel();
+        this.tyreLabels[2] = tyreRL;
+        var tyreRR = new JLabel();
+        this.tyreLabels[3] = tyreRR;
+        refuelButton = new JButton();
+        reTyreButton = new JButton();
+        fuelSlider = new JSlider();
+        tyreList = new JList();
 
         //======== this ========
         setLayout(new MigLayout(
-            "hidemode 3",
-            // columns
-            "[180,fill]" +
-            "[151,fill]" +
-            "[fill]",
-            // rows
-            "[]" +
-            "[26]" +
-            "[]" +
-            "[104]" +
-            "[]"));
+                "hidemode 3",
+                // columns
+                "[180,fill]" +
+                        "[151,fill]" +
+                        "[fill]",
+                // rows
+                "[]" +
+                        "[26]" +
+                        "[]" +
+                        "[104]" +
+                        "[]"));
 
-        //---- label5 ----
-        label5.setText("Current: Medium");
-        label5.setHorizontalAlignment(SwingConstants.CENTER);
-        add(label5, "cell 1 0");
+        //---- tyreType ----
+        tyreType.setText("Current: Medium");
+        tyreType.setHorizontalAlignment(SwingConstants.CENTER);
+        add(tyreType, "cell 1 0");
 
-        //---- label1 ----
-        label1.setText("10L / 30L");
-        label1.setHorizontalAlignment(SwingConstants.CENTER);
-        add(label1, "cell 0 1");
+        //---- fuelLabel ----
+        fuelLabel.setText("10L / 50L");
+        fuelLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(fuelLabel, "cell 0 1");
 
-        //---- label3 ----
-        label3.setText("15%");
-        label3.setHorizontalAlignment(SwingConstants.CENTER);
-        add(label3, "cell 1 1");
+        //---- tyreFL ----
+        tyreFL.setText("15%");
+        tyreFL.setHorizontalAlignment(SwingConstants.CENTER);
+        add(tyreFL, "tag ok,cell 1 1");
 
-        //---- label4 ----
-        label4.setText("69%");
-        label4.setHorizontalAlignment(SwingConstants.CENTER);
-        add(label4, "cell 1 1");
+        //---- tyreFR ----
+        tyreFR.setText("69%");
+        tyreFR.setHorizontalAlignment(SwingConstants.CENTER);
+        add(tyreFR, "tag ok,cell 1 1");
 
-        //---- label6 ----
-        label6.setText("56%");
-        label6.setHorizontalAlignment(SwingConstants.CENTER);
-        add(label6, "cell 1 2");
+        //---- fuelBar ----
+        fuelBar.setMaximum(50);
+        fuelBar.setValue(10);
+        fuelBar.setForeground(new Color(0, 204, 51));
+        fuelBar.setStringPainted(true);
+        add(fuelBar, "cell 0 2");
 
-        //---- label7 ----
-        label7.setText("1%");
-        label7.setHorizontalAlignment(SwingConstants.CENTER);
-        add(label7, "cell 1 2");
+        //---- tyreRL ----
+        tyreRL.setText("56%");
+        tyreRL.setHorizontalAlignment(SwingConstants.CENTER);
+        add(tyreRL, "tag ok,cell 1 2");
 
-        //---- button1 ----
-        button1.setText("Refuel");
-        add(button1, "cell 0 3");
+        //---- tyreRR ----
+        tyreRR.setText("1%");
+        tyreRR.setHorizontalAlignment(SwingConstants.CENTER);
+        add(tyreRR, "tag ok,cell 1 2");
 
-        //---- button2 ----
-        button2.setText("Change Tires");
-        add(button2, "cell 1 3");
-        add(slider1, "cell 0 4");
-        add(list1, "cell 1 4");
+        //---- refuelButton ----
+        refuelButton.setText("Refuel");
+        add(refuelButton, "cell 0 3");
+
+        //---- reTyreButton ----
+        reTyreButton.setText("Change Tires");
+        add(reTyreButton, "cell 1 3");
+
+        //---- fuelSlider ----
+        fuelSlider.setMajorTickSpacing(10);
+        fuelSlider.setMaximum(50);
+        fuelSlider.setMinorTickSpacing(5);
+        fuelSlider.setPaintLabels(true);
+        fuelSlider.setPaintTicks(true);
+        fuelSlider.setBorder(null);
+        fuelSlider.setToolTipText("Select how much liters you want to refuel");
+        add(fuelSlider, "cell 0 4");
+        add(tyreList, "cell 1 4");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JPanel panel;
-    private JLabel label5;
-    private JLabel label1;
-    private JLabel label3;
-    private JLabel label4;
-    private JLabel label6;
-    private JLabel label7;
-    private JButton button1;
-    private JButton button2;
-    private JSlider slider1;
-    private JList list1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

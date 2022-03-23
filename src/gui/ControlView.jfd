@@ -13,66 +13,99 @@ new FormModel {
 				"JavaCodeGenerator.variableName": "panel"
 			}
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label5"
+				name: "tyreType"
 				"text": "Current: Medium"
 				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 0"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label1"
-				"text": "10L / 30L"
+				name: "fuelLabel"
+				"text": "10L / 50L"
 				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 1"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label3"
+				name: "tyreFL"
 				"text": "15%"
 				"horizontalAlignment": 0
+				auxiliary() {
+					"JavaCodeGenerator.postCreateCode": "this.tyreLabels[0] = tyreFL;"
+					"JavaCodeGenerator.variableLocal": true
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 1"
+				"value": "tag ok,cell 1 1"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
+				name: "tyreFR"
 				"text": "69%"
 				"horizontalAlignment": 0
+				auxiliary() {
+					"JavaCodeGenerator.postCreateCode": "this.tyreLabels[1] = tyreFR;"
+					"JavaCodeGenerator.variableLocal": true
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 1"
+				"value": "tag ok,cell 1 1"
+			} )
+			add( new FormComponent( "javax.swing.JProgressBar" ) {
+				name: "fuelBar"
+				"maximum": 50
+				"value": 10
+				"foreground": new java.awt.Color( 0, 204, 51, 255 )
+				"stringPainted": true
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label6"
+				name: "tyreRL"
 				"text": "56%"
 				"horizontalAlignment": 0
+				auxiliary() {
+					"JavaCodeGenerator.postCreateCode": "this.tyreLabels[2] = tyreRL;"
+					"JavaCodeGenerator.variableLocal": true
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 2"
+				"value": "tag ok,cell 1 2"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label7"
+				name: "tyreRR"
 				"text": "1%"
 				"horizontalAlignment": 0
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "tyreRR"
+					"JavaCodeGenerator.postCreateCode": "this.tyreLabels[3] = tyreRR;"
+					"JavaCodeGenerator.variableLocal": true
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 2"
+				"value": "tag ok,cell 1 2"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "refuelButton"
 				"text": "Refuel"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "reTyreButton"
 				"text": "Change Tires"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 3"
 			} )
 			add( new FormComponent( "javax.swing.JSlider" ) {
-				name: "slider1"
+				name: "fuelSlider"
+				"majorTickSpacing": 10
+				"maximum": 50
+				"minorTickSpacing": 5
+				"paintLabels": true
+				"paintTicks": true
+				"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"toolTipText": "Select how much liters you want to refuel"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 4"
 			} )
 			add( new FormComponent( "javax.swing.JList" ) {
-				name: "list1"
+				name: "tyreList"
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 4"
 			} )
