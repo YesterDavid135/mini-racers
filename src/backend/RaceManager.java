@@ -10,8 +10,8 @@ public class RaceManager {
 
     public RaceManager() {
         Track track = dataManager.readRandomTrack();
-        ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord());
-        Safetycar safetycar = dataManager.generateSafetycar(track.getLaptimeRecord());
+        ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord(), track.getWeather().getWeatherType());
+        Safetycar safetycar = dataManager.generateSafetycar(track.getLaptimeRecord(), track.getWeather().getWeatherType());
         this.race = new Race(track, cars, safetycar);
     }
 

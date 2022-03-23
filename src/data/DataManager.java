@@ -1,6 +1,10 @@
 package data;
 
 import backend.*;
+import backend.tyre.HardCompound;
+import backend.tyre.SoftCompound;
+import backend.tyre.Tyre;
+import backend.tyre.WetCompound;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -77,19 +81,19 @@ public class DataManager {
         return tracks.get(0);
     }
 
-    public ArrayList<Car> generateCars(double laptimeReference) {
+    public ArrayList<Car> generateCars(double laptimeReference, String weatherType) {
         ArrayList<Driver> drivers = readDrivers();
         ArrayList<Car> cars = new ArrayList<>();
         for (int i = 0; i < drivers.size(); i++) {
-            Car car = new Car(drivers.get(i), i + 1, laptimeReference, i * 0.5);
+            Car car = new Car(drivers.get(i), i + 1, laptimeReference, i * 0.5, generateTyres(weatherType));
             cars.add(car);
         }
         return cars;
     }
 
-    public Safetycar generateSafetycar(double laptimeReference) {
+    public Safetycar generateSafetycar(double laptimeReference, String weatherType) {
         Driver driver = readRandomSafetycarDriver();
-        return new Safetycar(driver, 0, laptimeReference, 0);
+        return new Safetycar(driver, 0, laptimeReference, 0, generateTyres(weatherType));
     }
 
     public Weather generateRandomWeather() {
@@ -101,6 +105,27 @@ public class DataManager {
         } else {
             return new Weather("Wet", 2, 1.05);
         }
+    }
+
+    public ArrayList<Tyre> generateTyres(String weatherType) {
+        ArrayList<Tyre> tyres = new ArrayList<>();
+        if (weatherType.equals("Wet")) {
+            for (int i = 0; i < 4; i++) {
+                tyres.add(new WetCompound());
+            }
+        } else {
+            double randomValue = Math.random();
+            if (randomValue > 0.5) {
+                for (int i = 0; i < 4; i++) {
+                    tyres.add(new SoftCompound());
+                }
+            } else {
+                for (int i = 0; i < 4; i++) {
+                    tyres.add(new HardCompound());
+                }
+            }
+        }
+        return tyres;
     }
 
     //TODO: Implementation

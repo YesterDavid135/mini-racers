@@ -1,10 +1,14 @@
 package backend;
 
+import backend.tyre.Tyre;
+
+import java.util.ArrayList;
+
 public class Safetycar extends Car {
     private int lapsDeployedLeft;
 
-    public Safetycar(Driver driver, int startPosition, double laptimeReference, double racetimeTotal) {
-        super(driver, startPosition, laptimeReference, racetimeTotal);
+    public Safetycar(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, ArrayList<Tyre> tyres) {
+        super(driver, startPosition, laptimeReference, racetimeTotal, tyres);
         this.lapsDeployedLeft = 0;
     }
 
