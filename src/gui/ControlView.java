@@ -9,6 +9,10 @@ import net.miginfocom.swing.*;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
+//todo: falls es fehler git @noel
+//
+// Project Structure -> Project Settings -> Modules -> Mini Racers -> Dependencies -> + -> library -> Java -> lib/miglayout-swing.jar UND lib/miglayout-core.jar hinzuefüge und denn sätts go
+
 public class ControlView  extends JPanel implements ActionListener {
 
     private final JFrame frame = new JFrame();
