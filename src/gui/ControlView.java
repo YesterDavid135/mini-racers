@@ -29,7 +29,7 @@ public class ControlView extends JPanel implements ActionListener {
         if (e.getSource() == refuelButton){
             raceManager.refuelCar(fuelSlider.getValue());
         }else if (e.getSource() == reTyreButton){
-            raceManager.changeTyre(TyreType.WET);
+            raceManager.changeTyre((TyreType) tyreList.getSelectedItem());
         }
 
     }
@@ -107,7 +107,7 @@ public class ControlView extends JPanel implements ActionListener {
         reTyreButton = new JButton();
         reTyreButton.addActionListener(this);
         fuelSlider = new JSlider();
-        tyreList = new JList();
+        tyreList = new JComboBox<>();
 
         //======== this ========
         setLayout(new MigLayout(
@@ -179,7 +179,8 @@ public class ControlView extends JPanel implements ActionListener {
         add(fuelSlider, "cell 0 4");
 
         //---- tyreList ----
-        tyreList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tyreList.setMaximumRowCount(3);
+        tyreList.setModel(new DefaultComboBoxModel<>(TyreType.values()));
         add(tyreList, "cell 1 4");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -192,6 +193,6 @@ public class ControlView extends JPanel implements ActionListener {
     private JButton refuelButton;
     private JButton reTyreButton;
     private JSlider fuelSlider;
-    private JList tyreList;
+    private JComboBox<TyreType> tyreList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

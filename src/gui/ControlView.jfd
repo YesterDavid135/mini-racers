@@ -110,9 +110,13 @@ new FormModel {
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 4"
 			} )
-			add( new FormComponent( "javax.swing.JList" ) {
+			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "tyreList"
-				"selectionMode": 0
+				"maximumRowCount": 3
+				auxiliary() {
+					"JavaCodeGenerator.typeParameters": "TyreType"
+					"JavaCodeGenerator.postInitCode": "tyreList.setModel(new DefaultComboBoxModel<>(TyreType.values()));"
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 4"
 			} )
