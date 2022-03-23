@@ -3,9 +3,8 @@ package backend.tyre;
 public class HardCompound extends Tyre {
 
     public HardCompound() {
-        super();
+        super(TyreType.HARD);
         setCompoundInfluence(1.02);
-        setRainTyre(false);
     }
 
     public void updateTyreCondition(double driverSkill) {
