@@ -3,9 +3,8 @@ package backend.tyre;
 public class SoftCompound extends Tyre {
 
     public SoftCompound() {
-        super();
+        super(TyreType.SOFT);
         setCompoundInfluence(1);
-        setRainTyre(false);
     }
 
     public void updateTyreCondition(double driverSkill) {
