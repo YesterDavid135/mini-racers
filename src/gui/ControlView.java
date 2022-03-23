@@ -2,6 +2,8 @@ package gui;
 
 import backend.RaceManager;
 import backend.tyre.Tyre;
+import backend.tyre.TyreType;
+import backend.tyre.WetCompound;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -20,10 +22,15 @@ public class ControlView extends JPanel implements ActionListener {
 
     private final JLabel[] tyreLabels = new JLabel[4];
     private final RaceManager raceManager;
-    private JLabel tyreType;
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == refuelButton){
+            raceManager.refuelCar(fuelSlider.getValue());
+        }else if (e.getSource() == reTyreButton){
+            raceManager.changeTyre(TyreType.WET);
+        }
 
     }
 
@@ -96,7 +103,9 @@ public class ControlView extends JPanel implements ActionListener {
         var tyreRR = new JLabel();
         this.tyreLabels[3] = tyreRR;
         refuelButton = new JButton();
+        refuelButton.addActionListener(this);
         reTyreButton = new JButton();
+        reTyreButton.addActionListener(this);
         fuelSlider = new JSlider();
         tyreList = new JList();
 

@@ -83,12 +83,18 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "refuelButton"
 				"text": "Refuel"
+				auxiliary() {
+					"JavaCodeGenerator.postCreateCode": "refuelButton.addActionListener(this);"
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "reTyreButton"
 				"text": "Change Tires"
+				auxiliary() {
+					"JavaCodeGenerator.postCreateCode": "reTyreButton.addActionListener(this);"
+				}
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 3"
 			} )
