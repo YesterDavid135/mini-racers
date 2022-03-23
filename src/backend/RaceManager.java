@@ -1,5 +1,8 @@
 package backend;
 
+import backend.tyre.SoftCompound;
+import backend.tyre.Tyre;
+import backend.tyre.TyreType;
 import data.DataManager;
 
 import java.util.ArrayList;
@@ -19,11 +22,37 @@ public class RaceManager {
         return race;
     }
 
-    public ArrayList<Car> getCrashedCarsThisRound(){
+    public ArrayList<Car> getCrashedCarsThisRound() {
         return race.getCrashedCarsThisLap();
     }
 
-    public int getLapsLeft(){
+    public int getLapsLeft() {
         return race.getLapsLeft();
     }
+
+    //Methods for ControlView
+
+    public double getFuelLeft() {
+        return Math.random() * 50; //todo
+    }
+
+    public void refuelCar(double liter) {
+        System.out.println("Refueled Car to " + liter + "Liter"); //todo
+    }
+
+    public void changeTyre(TyreType tyre) {
+        System.out.println("Changed Tyres to " + tyre); //todo
+    }
+
+    public Tyre[] getTyres() {
+        Tyre[] tyres = new Tyre[4]; //todo
+
+        for (int i = 0; i < tyres.length; i++) {
+            tyres[i] = new SoftCompound();
+            tyres[i].setTyreCondition(Math.random());
+        }
+
+        return tyres;
+    }
+
 }

@@ -23,39 +23,40 @@ public class RaceView extends JFrame implements ActionListener {
     private final JLabel labelSafetycarDeployed = new JLabel("SAFETYCAR DEPLOYED");
     private final JButton buttonNextLap = new JButton("NEXT LAP");
 
-    private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap" ,"Delta"}, 0);
+    private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap", "Delta"}, 0);
     private final RaceManager raceManager;
 
     private final CrashView crashView;
+    private final ControlView controlView;
 
     public RaceView(RaceManager raceManager) {
         this.raceManager = raceManager;
 
-        frame.setSize(500,600);
+        frame.setSize(500, 600);
         frame.setTitle("Mini Racers");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         labelLap.setText("LAPS LEFT: " + raceManager.getRace().getLapsLeft());
-        labelLap.setBounds(10,430,200,50);
+        labelLap.setBounds(10, 430, 200, 50);
         frame.add(labelLap);
 
         labelTrack.setText("Track: " + raceManager.getRace().getTrack().getName());
-        labelTrack.setBounds(10,445,200,50);
+        labelTrack.setBounds(10, 445, 200, 50);
         frame.add(labelTrack);
 
         labelFastestLap.setText("Lap Record: " + getFormattedLaptime(raceManager.getRace().getTrack().getLaptimeRecord()));
-        labelFastestLap.setBounds(10,460,200,50);
+        labelFastestLap.setBounds(10, 460, 200, 50);
         frame.add(labelFastestLap);
 
         labelWeather.setText("Weather: " + raceManager.getRace().getTrack().getWeather().getWeatherType());
-        labelWeather.setBounds(10,475,200,50);
+        labelWeather.setBounds(10, 475, 200, 50);
         frame.add(labelWeather);
 
         labelSafetycarDeployed.setVisible(false);
-        labelSafetycarDeployed.setBounds(10,505,200,50);
+        labelSafetycarDeployed.setBounds(10, 505, 200, 50);
         frame.add(labelSafetycarDeployed);
 
-        buttonNextLap.setBounds(370,500,100,50);
+        buttonNextLap.setBounds(370, 500, 100, 50);
         buttonNextLap.addActionListener(this);
         frame.add(buttonNextLap);
 
@@ -72,7 +73,7 @@ public class RaceView extends JFrame implements ActionListener {
                 frame.getX() + frame.getWidth() + 1,
                 frame.getY());
 
-        new ControlView(raceManager,
+        controlView = new ControlView(raceManager,
                 frame.getX(),
                 frame.getY() + frame.getHeight() + 1);
         reloadGui();
@@ -139,6 +140,7 @@ public class RaceView extends JFrame implements ActionListener {
             raceManager.getRace().nextLap();
             reloadGui();
             crashView.reloadGui();
+            controlView.updateData();
         }
     }
 }

@@ -3,9 +3,8 @@ package backend.tyre;
 public class WetCompound extends Tyre {
 
     public WetCompound() {
-        super();
+        super(TyreType.WET);
         setCompoundInfluence(1.05);
-        setRainTyre(true);
     }
 
     public void updateTyreCondition(double driverSkill) {

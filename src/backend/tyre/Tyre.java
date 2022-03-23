@@ -3,13 +3,19 @@ package backend.tyre;
 public abstract class Tyre {
     private double tyreCondition; //100% = 1.0, 0% = 0.0
     private double compoundInfluence;
-    private boolean isRainTyre;
+    private final TyreType tyreType;
 
-    public Tyre() {
+    public Tyre(TyreType tyreType) {
         this.tyreCondition = 1;
+        this.tyreType = tyreType;
     }
 
     public abstract void updateTyreCondition(double driverSkill);
+
+
+    public TyreType getTyreType() {
+        return tyreType;
+    }
 
     public double getTyreCondition() {
         return tyreCondition;
@@ -27,11 +33,5 @@ public abstract class Tyre {
         this.compoundInfluence = compoundInfluence;
     }
 
-    public boolean isRainTyre() {
-        return isRainTyre;
-    }
 
-    public void setRainTyre(boolean rainTyre) {
-        isRainTyre = rainTyre;
-    }
 }
