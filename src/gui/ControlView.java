@@ -27,15 +27,6 @@ public class ControlView extends JPanel implements ActionListener {
 
     }
 
-    private JLabel fuelLabel;
-    private JProgressBar fuelBar;
-    private JButton refuelButton;
-    private JButton reTyreButton;
-    private JSlider fuelSlider;
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JPanel panel;
-    private JList tyreList;
 
     public ControlView(RaceManager raceManager, int posX, int posY) {
         this.raceManager = raceManager;
@@ -50,6 +41,10 @@ public class ControlView extends JPanel implements ActionListener {
         frame.add(this);
 
         frame.setVisible(true);
+
+        tyreList.add(new PopupMenu("Soft"));
+        tyreList.add(new PopupMenu("Hard"));
+        tyreList.add(new PopupMenu("Wet"));
 
         updateData();
     }
@@ -107,17 +102,17 @@ public class ControlView extends JPanel implements ActionListener {
 
         //======== this ========
         setLayout(new MigLayout(
-                "hidemode 3",
-                // columns
-                "[180,fill]" +
-                        "[151,fill]" +
-                        "[fill]",
-                // rows
-                "[]" +
-                        "[26]" +
-                        "[]" +
-                        "[104]" +
-                        "[]"));
+            "hidemode 3",
+            // columns
+            "[180,fill]" +
+            "[151,fill]" +
+            "[fill]",
+            // rows
+            "[]" +
+            "[26]" +
+            "[]" +
+            "[104]" +
+            "[]"));
 
         //---- tyreType ----
         tyreType.setText("Current: Medium");
@@ -173,8 +168,21 @@ public class ControlView extends JPanel implements ActionListener {
         fuelSlider.setBorder(null);
         fuelSlider.setToolTipText("Select how much liters you want to refuel");
         add(fuelSlider, "cell 0 4");
+
+        //---- tyreList ----
+        tyreList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         add(tyreList, "cell 1 4");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JPanel panel;
+    private JLabel tyreType;
+    private JLabel fuelLabel;
+    private JProgressBar fuelBar;
+    private JButton refuelButton;
+    private JButton reTyreButton;
+    private JSlider fuelSlider;
+    private JList tyreList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
