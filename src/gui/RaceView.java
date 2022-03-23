@@ -20,7 +20,7 @@ public class RaceView extends JFrame implements ActionListener {
     private final JLabel labelTrack = new JLabel();
     private final JLabel labelFastestLap = new JLabel();
     private final JLabel labelWeather = new JLabel();
-    private final JLabel labelSafetycarDeployed = new JLabel();
+    private final JLabel labelSafetycarDeployed = new JLabel("SAFETYCAR DEPLOYED");
     private final JButton buttonNextLap = new JButton("NEXT LAP");
 
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Postion", "Start Position", "Number", "Name", "Last Lap" ,"Delta"}, 0);
@@ -51,7 +51,7 @@ public class RaceView extends JFrame implements ActionListener {
         labelWeather.setBounds(10,475,200,50);
         frame.add(labelWeather);
 
-        labelSafetycarDeployed.setText("");
+        labelSafetycarDeployed.setVisible(false);
         labelSafetycarDeployed.setBounds(10,505,200,50);
         frame.add(labelSafetycarDeployed);
 
@@ -96,9 +96,7 @@ public class RaceView extends JFrame implements ActionListener {
         raceTable.setModel(model);
         labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
         if (raceManager.getRace().isSafetycarDeployed()) {
-            labelSafetycarDeployed.setText("SAFETYCAR DEPLOYED");
-        } else {
-            labelSafetycarDeployed.setText("");
+            labelSafetycarDeployed.setVisible(true);
         }
     }
 
@@ -129,6 +127,9 @@ public class RaceView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonNextLap) {
+            if (!raceManager.getRace().isSafetycarDeployed()) {
+                labelSafetycarDeployed.setVisible(false);
+            }
             raceManager.getRace().nextLap();
             reloadGui();
             crashView.reloadGui();

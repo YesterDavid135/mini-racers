@@ -20,7 +20,7 @@ public class RaceManager {
     }
 
     public ArrayList<Car> getCrashedCarsThisRound(){
-        return race.getCrashedCarsThisRound();
+        return race.getCrashedCarsThisLap();
     }
 
     public int getLapsLeft(){

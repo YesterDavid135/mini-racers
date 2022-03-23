@@ -7,7 +7,7 @@ public class Race {
     private final ArrayList<Car> cars;
     private final Safetycar safetycar;
     private final ArrayList<Car> crashedCars = new ArrayList<>();
-    private ArrayList<Car> crashedCarsThisRound = new ArrayList<>();
+    private ArrayList<Car> crashedCarsThisLap = new ArrayList<>();
     private ArrayList<Double> deltaList;
     private int lapsLeft;
 
@@ -21,7 +21,7 @@ public class Race {
 
     public void nextLap() {
         lapsLeft--;
-        this.crashedCarsThisRound = new ArrayList<>();
+        this.crashedCarsThisLap = new ArrayList<>();
         updateCarStats();
         updateDeltaList();
     }
@@ -84,15 +84,14 @@ public class Race {
             double crashChance = car.getCrashChance();
             double randomValue = Math.random() * 100;
             if (crashChance >= randomValue) {
-                crashedCarsThisRound.add(car);
+                crashedCarsThisLap.add(car);
                 crashedCars.add(car);
-                System.out.println(car.getDriver().getName() + " crashed with " + lapsLeft + " laps left. Crash Probability: " + car.getCrashChance());
             }
         }
-        if (crashedCarsThisRound.size() > 1) {
+        if (crashedCarsThisLap.size() > 0) {
             deploySafetycar();
         }
-        for (Car car : crashedCarsThisRound){
+        for (Car car : crashedCarsThisLap) {
             cars.remove(car);
         }
 
@@ -127,8 +126,8 @@ public class Race {
         return crashedCars;
     }
 
-    public ArrayList<Car> getCrashedCarsThisRound() {
-        return crashedCarsThisRound;
+    public ArrayList<Car> getCrashedCarsThisLap() {
+        return crashedCarsThisLap;
     }
 
     public ArrayList<Double> getDeltaList() {
