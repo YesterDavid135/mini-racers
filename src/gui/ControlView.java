@@ -74,8 +74,18 @@ public class ControlView extends JPanel implements ActionListener {
         tyreType.setText("Current Compound: " + tyres[0].getTyreType().toString());
 
         for (int i = 0; i < 4; i++) {
-            tyreLabels[i].setText(getFormattedDouble(tyres[i].getTyreCondition() * 100) + "%");
+            setTyreLabel(tyreLabels[i],tyres[i].getTyreCondition() * 100);
         }
+    }
+
+    private void setTyreLabel(JLabel tyre, double condition){
+        tyre.setText(getFormattedDouble(condition)  + "%");
+        if (condition >= 50)
+             tyre.setForeground(Color.GREEN);
+        else if (condition >= 15)
+            tyre.setForeground(Color.orange);
+        else
+            tyre.setForeground(Color.red);
     }
 
     public String getFormattedDouble(double input) {
