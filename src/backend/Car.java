@@ -1,6 +1,9 @@
 package backend;
 
 import backend.tyre.Tyre;
+import backend.tyre.TyreType;
+import backend.weather.Weather;
+import backend.weather.WeatherType;
 
 import java.util.ArrayList;
 
@@ -33,13 +36,16 @@ public class Car {
         this.position = position;
     }
 
-    public void updateLaptime(double weatherInfluence) {
+    public void updateLaptime(Weather weather) {
         double staminaInfluence = (1 - driver.getStamina()) / 100;
         double skillInfluence = (1 - driver.getSkill()) / 100;
         double damageInluence = damage / 50;
+        double tyreCompoundInfluence = tyres.get(0).getCompoundInfluence();
         double tyreConditionInfluence = (1 - getCombinedTyreCondition()) / 50;
         double randomValue = Math.random() / 150;
-        laptime = laptimeReference * (1 + staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence + randomValue) * weatherInfluence;
+        double wrongTyreInfluence = getWrongTyreLaptimeInfluence(weather);
+
+        laptime = laptimeReference * (1 + staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence + randomValue) * tyreCompoundInfluence * wrongTyreInfluence;
     }
 
     public void updateRacetimeTotal() {
@@ -61,12 +67,14 @@ public class Car {
         }
     }
 
-    public void updateCrashChance(double riskMultiplier) {
+    public void updateCrashChance(Weather weather) {
         double staminaInfluence = (1 - driver.getStamina()) / 4; //up to 0.25% per lap
         double skillInfluence = (1 - driver.getSkill()) / 8; //up to 0.125% per lap
         double damageInluence = damage / 8; //up to 0.125% per lap
         double tyreConditionInfluence = (1 - getCombinedTyreCondition()) / 2; //up to 0.5% per lap
-        crashChance = (staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence) * riskMultiplier;
+        double weatherRiskInfluence = weather.getRiskMultiplier();
+        double wrongTyreInfluence = getWrongTyreRiskInfluence(weather);
+        crashChance = (staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence) * weatherRiskInfluence * wrongTyreInfluence;
     }
 
     public double getCombinedTyreCondition() {
@@ -75,6 +83,36 @@ public class Car {
             combinedTyreCondition += tyre.getTyreCondition();
         }
         return combinedTyreCondition / 4;
+    }
+
+    public double getWrongTyreLaptimeInfluence(Weather weather) {
+        double randomValue = Math.random() / 4;
+        double wrongTyreInfluence = 1;
+        if (weather.getWeatherType() == WeatherType.WET) {
+            if (tyres.get(0).getTyreType() != TyreType.WET) {
+                wrongTyreInfluence = 1.3 + randomValue;
+            }
+        } else {
+            if (tyres.get(0).getTyreType() == TyreType.WET) {
+                wrongTyreInfluence = 1.5;
+            }
+        }
+        return wrongTyreInfluence;
+    }
+
+
+    public double getWrongTyreRiskInfluence(Weather weather) {
+        double wrongTyreInfluence = 1;
+        if (weather.getWeatherType() == WeatherType.WET) {
+            if (tyres.get(0).getTyreType() != TyreType.WET) {
+                wrongTyreInfluence = 3;
+            }
+        } else {
+            if (tyres.get(0).getTyreType() == TyreType.WET) {
+                wrongTyreInfluence = 1.5;
+            }
+        }
+        return wrongTyreInfluence;
     }
 
     public Driver getDriver() {

@@ -5,6 +5,8 @@ import backend.tyre.HardCompound;
 import backend.tyre.SoftCompound;
 import backend.tyre.Tyre;
 import backend.tyre.WetCompound;
+import backend.weather.Weather;
+import backend.weather.WeatherType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,7 +83,7 @@ public class DataManager {
         return tracks.get(0);
     }
 
-    public ArrayList<Car> generateCars(double laptimeReference, String weatherType) {
+    public ArrayList<Car> generateCars(double laptimeReference, WeatherType weatherType) {
         ArrayList<Driver> drivers = readDrivers();
         ArrayList<Car> cars = new ArrayList<>();
         for (int i = 0; i < drivers.size(); i++) {
@@ -91,7 +93,7 @@ public class DataManager {
         return cars;
     }
 
-    public Safetycar generateSafetycar(double laptimeReference, String weatherType) {
+    public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
         Driver driver = readRandomSafetycarDriver();
         return new Safetycar(driver, 0, laptimeReference, 0, generateTyres(weatherType));
     }
@@ -99,17 +101,17 @@ public class DataManager {
     public Weather generateRandomWeather() {
         double randomValue = Math.random();
         if (randomValue > 0.6) {
-            return new Weather("Dry", 1, 1);
+            return new Weather(WeatherType.DRY, 1);
         } else if (randomValue > 0.2) {
-            return new Weather("Cloudy", 1, 1);
+            return new Weather(WeatherType.CLOUDY, 1);
         } else {
-            return new Weather("Wet", 2, 1.05);
+            return new Weather(WeatherType.WET, 1.5);
         }
     }
 
-    public ArrayList<Tyre> generateTyres(String weatherType) {
+    public ArrayList<Tyre> generateTyres(WeatherType weatherType) {
         ArrayList<Tyre> tyres = new ArrayList<>();
-        if (weatherType.equals("Wet")) {
+        if (weatherType == WeatherType.WET) {
             for (int i = 0; i < 4; i++) {
                 tyres.add(new WetCompound());
             }
