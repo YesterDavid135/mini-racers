@@ -8,7 +8,8 @@ public class WetCompound extends Tyre {
     }
 
     public void updateTyreCondition(double driverSkill) {
-        double updatedTyreCondition = getTyreCondition() - 0.03  - ((1 - driverSkill) / 100);
+        double randomValue = Math.random() / 100;
+        double updatedTyreCondition = getTyreCondition() - 0.03 - randomValue - ((1 - driverSkill) / 100);
         if (updatedTyreCondition > 0) {
             setTyreCondition(updatedTyreCondition);
         } else {
