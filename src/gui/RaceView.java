@@ -4,6 +4,7 @@ import backend.RaceManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -54,6 +55,7 @@ public class RaceView extends JFrame implements ActionListener {
 
         labelSafetycarDeployed.setVisible(false);
         labelSafetycarDeployed.setBounds(10, 505, 200, 50);
+        labelSafetycarDeployed.setForeground(Color.RED);
         frame.add(labelSafetycarDeployed);
 
         buttonNextLap.setBounds(370, 500, 100, 50);
@@ -102,7 +104,7 @@ public class RaceView extends JFrame implements ActionListener {
                 }
             } else {
                 if (raceManager.getRace().isSafetycarDeployed()) {
-                    row.addElement("Safetycar");
+                    row.addElement("SAFETYCAR");
                     isSecondRow = true;
                 } else {
                     row.addElement("Interval");

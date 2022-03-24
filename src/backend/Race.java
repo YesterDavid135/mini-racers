@@ -31,7 +31,7 @@ public class Race {
             car.getDriver().updateStamina();
             car.updateFuel();
             car.updateTyres(car.getDriver().getSkill());
-            car.updateLaptime(track.getWeather());
+            car.updateLaptime(track.getWeather(), isSafetycarDeployed(), safetycar.getSafetycarLaptimeMultiplier());
             car.updateCrashChance(track.getWeather());
             car.updateRacetimeTotal();
         }
