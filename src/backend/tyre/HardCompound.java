@@ -4,7 +4,7 @@ public class HardCompound extends Tyre {
 
     public HardCompound() {
         super(TyreType.HARD);
-        setCompoundInfluence(1.02);
+        setCompoundInfluence(1.01);
     }
 
     public void updateTyreCondition(double driverSkill) {
