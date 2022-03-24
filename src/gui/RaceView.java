@@ -87,7 +87,6 @@ public class RaceView extends JFrame implements ActionListener {
             model.removeRow(0);
         }
         boolean isFirstRow = true;
-        boolean isSecondRow = false;
         for (int i = 0; i < raceManager.getRace().getCars().size(); i++) {
             Vector<String> row = new Vector<>();
             row.addElement("P" + raceManager.getRace().getCars().get(i).getPosition());
@@ -95,21 +94,18 @@ public class RaceView extends JFrame implements ActionListener {
             row.addElement("#" + raceManager.getRace().getCars().get(i).getDriver().getNumber());
             row.addElement(raceManager.getRace().getCars().get(i).getDriver().getName());
             row.addElement(getFormattedLaptime(raceManager.getRace().getCars().get(i).getLaptime()));
-            if (!isFirstRow) {
-                if (isSecondRow) {
-                    row.addElement("Interval");
-                    isSecondRow = false;
-                } else {
-                    row.addElement("+" + getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
-                }
-            } else {
+            if (isFirstRow) {
                 if (raceManager.getRace().isSafetycarDeployed()) {
                     row.addElement("SAFETYCAR");
-                    isSecondRow = true;
                 } else {
                     row.addElement("Interval");
                 }
                 isFirstRow = false;
+            } else {
+                if (raceManager.getRace().isSafetycarDeployed() && i == 1) {
+                    row.addElement("Interval");
+                }
+                row.addElement("+" + getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
             }
             model.addRow(row);
         }

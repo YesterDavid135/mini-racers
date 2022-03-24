@@ -66,13 +66,11 @@ public class Race {
     }
 
     public void updateCarPositions() {
-        if (!isSafetycarDeployed()) {
-            for (int i = 0; i < cars.size(); i++) {
-                cars.get(i).updatePosition(i + 1);
-            }
-        } else {
-            for (int i = 0; i < cars.size(); i++) {
+        for (int i = 0; i < cars.size(); i++) {
+            if (isSafetycarDeployed()) {
                 cars.get(i).updatePosition(i);
+            } else {
+                cars.get(i).updatePosition(i + 1);
             }
         }
     }

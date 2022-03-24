@@ -3,7 +3,6 @@ package gui;
 import backend.RaceManager;
 import backend.tyre.Tyre;
 import backend.tyre.TyreType;
-import backend.tyre.WetCompound;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
