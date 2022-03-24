@@ -41,9 +41,6 @@ public class Race {
                 removeSafetycarFromCarList();
             }
         } else {
-            if (cars.get(0) == safetycar) {
-                removeSafetycarFromCarList();
-            }
             checkCrash();
         }
         updateCarList();

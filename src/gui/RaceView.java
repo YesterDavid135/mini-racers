@@ -102,9 +102,7 @@ public class RaceView extends JFrame implements ActionListener {
         }
         raceTable.setModel(model);
         labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
-        if (raceManager.getRace().isSafetycarDeployed()) {
-            labelSafetycarDeployed.setVisible(true);
-        }
+        labelSafetycarDeployed.setVisible(raceManager.getRace().isSafetycarDeployed());
     }
 
     public String getFormattedLaptime(double laptime) {
@@ -134,9 +132,6 @@ public class RaceView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonNextLap) {
-            if (!raceManager.getRace().isSafetycarDeployed()) {
-                labelSafetycarDeployed.setVisible(false);
-            }
             raceManager.getRace().nextLap();
             reloadGui();
             crashView.reloadGui();
