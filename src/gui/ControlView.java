@@ -82,9 +82,7 @@ public class ControlView extends JPanel implements ActionListener {
         tyre.setText(getFormattedDouble(condition)  + "%");
         if (condition >= 50)
              tyre.setForeground(Color.GREEN);
-        else if (condition >= 25)
-            tyre.setForeground(Color.YELLOW);
-        else if (condition >= 10)
+        else if (condition >= 15)
             tyre.setForeground(Color.orange);
         else
             tyre.setForeground(Color.red);
