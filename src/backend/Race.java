@@ -37,6 +37,9 @@ public class Race {
         }
         if (isSafetycarDeployed()) {
             safetycar.subtractLapsDeployedLeft();
+            if (safetycar.getLapsDeployedLeft() < 1) {
+                removeSafetycarFromCarList();
+            }
         } else {
             if (cars.get(0) == safetycar) {
                 removeSafetycarFromCarList();
@@ -66,8 +69,14 @@ public class Race {
     }
 
     public void updateCarPositions() {
-        for (int i = 0; i < cars.size(); i++) {
-            cars.get(i).updatePosition(i + 1);
+        if (!isSafetycarDeployed()) {
+            for (int i = 0; i < cars.size(); i++) {
+                cars.get(i).updatePosition(i + 1);
+            }
+        } else {
+            for (int i = 0; i < cars.size(); i++) {
+                cars.get(i).updatePosition(i);
+            }
         }
     }
 
