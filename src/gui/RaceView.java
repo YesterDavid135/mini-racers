@@ -86,7 +86,6 @@ public class RaceView extends JFrame implements ActionListener {
         for (int i = 0; i < rowCount; i++) {
             model.removeRow(0);
         }
-        boolean isFirstRow = true;
         for (int i = 0; i < raceManager.getRace().getCars().size(); i++) {
             Vector<String> row = new Vector<>();
             row.addElement("P" + raceManager.getRace().getCars().get(i).getPosition());
@@ -94,13 +93,8 @@ public class RaceView extends JFrame implements ActionListener {
             row.addElement("#" + raceManager.getRace().getCars().get(i).getDriver().getNumber());
             row.addElement(raceManager.getRace().getCars().get(i).getDriver().getName());
             row.addElement(getFormattedLaptime(raceManager.getRace().getCars().get(i).getLaptime()));
-            if (isFirstRow) {
-                if (raceManager.getRace().isSafetycarDeployed()) {
-                    row.addElement("SAFETYCAR");
-                } else {
-                    row.addElement("Interval");
-                }
-                isFirstRow = false;
+            if (i == 0) {
+                row.addElement(raceManager.getRace().isSafetycarDeployed() ? "SAFETYCAR" : "Interval");
             } else {
                 if (raceManager.getRace().isSafetycarDeployed() && i == 1) {
                     row.addElement("Interval");
