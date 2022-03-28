@@ -31,16 +31,16 @@ public class Race {
             car.getDriver().updateStamina();
             car.updateFuel();
             car.updateTyres(car.getDriver().getSkill());
-            car.updateLaptime(track.getWeather());
+            car.updateLaptime(track.getWeather(), isSafetycarDeployed(), safetycar.getSafetycarLaptimeMultiplier());
             car.updateCrashChance(track.getWeather());
             car.updateRacetimeTotal();
         }
         if (isSafetycarDeployed()) {
             safetycar.subtractLapsDeployedLeft();
-        } else {
-            if (cars.get(0) == safetycar) {
+            if (safetycar.getLapsDeployedLeft() < 1) {
                 removeSafetycarFromCarList();
             }
+        } else {
             checkCrash();
         }
         updateCarList();
@@ -67,7 +67,11 @@ public class Race {
 
     public void updateCarPositions() {
         for (int i = 0; i < cars.size(); i++) {
-            cars.get(i).updatePosition(i + 1);
+            if (isSafetycarDeployed()) {
+                cars.get(i).updatePosition(i);
+            } else {
+                cars.get(i).updatePosition(i + 1);
+            }
         }
     }
 

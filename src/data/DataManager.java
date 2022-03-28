@@ -95,7 +95,7 @@ public class DataManager {
 
     public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
         Driver driver = readRandomSafetycarDriver();
-        return new Safetycar(driver, 0, laptimeReference, 0, generateTyres(weatherType));
+        return new Safetycar(driver, 0, laptimeReference, 0, generateTyres(weatherType), 1.4);
     }
 
     public Weather generateRandomWeather() {

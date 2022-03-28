@@ -4,6 +4,7 @@ import backend.RaceManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -54,6 +55,7 @@ public class RaceView extends JFrame implements ActionListener {
 
         labelSafetycarDeployed.setVisible(false);
         labelSafetycarDeployed.setBounds(10, 505, 200, 50);
+        labelSafetycarDeployed.setForeground(Color.RED);
         frame.add(labelSafetycarDeployed);
 
         buttonNextLap.setBounds(370, 500, 100, 50);
@@ -84,7 +86,6 @@ public class RaceView extends JFrame implements ActionListener {
         for (int i = 0; i < rowCount; i++) {
             model.removeRow(0);
         }
-        boolean isFirstRow = true;
         for (int i = 0; i < raceManager.getRace().getCars().size(); i++) {
             Vector<String> row = new Vector<>();
             row.addElement("P" + raceManager.getRace().getCars().get(i).getPosition());
@@ -92,19 +93,19 @@ public class RaceView extends JFrame implements ActionListener {
             row.addElement("#" + raceManager.getRace().getCars().get(i).getDriver().getNumber());
             row.addElement(raceManager.getRace().getCars().get(i).getDriver().getName());
             row.addElement(getFormattedLaptime(raceManager.getRace().getCars().get(i).getLaptime()));
-            if (!isFirstRow) {
-                row.addElement("+" + getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
+            if (i == 0) {
+                row.addElement(raceManager.getRace().isSafetycarDeployed() ? "SAFETYCAR" : "Interval");
             } else {
-                row.addElement("Interval");
-                isFirstRow = false;
+                if (raceManager.getRace().isSafetycarDeployed() && i == 1) {
+                    row.addElement("Interval");
+                }
+                row.addElement("+" + getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
             }
             model.addRow(row);
         }
         raceTable.setModel(model);
         labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
-        if (raceManager.getRace().isSafetycarDeployed()) {
-            labelSafetycarDeployed.setVisible(true);
-        }
+        labelSafetycarDeployed.setVisible(raceManager.getRace().isSafetycarDeployed());
     }
 
     public String getFormattedLaptime(double laptime) {
@@ -134,9 +135,6 @@ public class RaceView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonNextLap) {
-            if (!raceManager.getRace().isSafetycarDeployed()) {
-                labelSafetycarDeployed.setVisible(false);
-            }
             raceManager.getRace().nextLap();
             reloadGui();
             crashView.reloadGui();
