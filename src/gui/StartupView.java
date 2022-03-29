@@ -32,6 +32,7 @@ public class StartupView extends JFrame {
 
     private void cancel(ActionEvent e) {
         // TODO add your code here
+        System.exit(1);
     }
 
     private void initComponents() {
@@ -96,11 +97,13 @@ public class StartupView extends JFrame {
 
                 //---- okButton ----
                 okButton.setText("Run");
+                okButton.setToolTipText("Start the Game");
                 okButton.addActionListener(e -> ok(e));
                 buttonBar.add(okButton, "cell 0 0");
 
                 //---- cancelButton ----
                 cancelButton.setText("Stop");
+                cancelButton.setToolTipText("Exit the Program");
                 cancelButton.addActionListener(e -> cancel(e));
                 buttonBar.add(cancelButton, "cell 1 0");
             }
