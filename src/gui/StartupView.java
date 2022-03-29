@@ -38,9 +38,10 @@ public class StartupView extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         dialogPane = new JPanel();
         contentPanel = new JPanel();
-        labelTitle = new JLabel();
+        var labelTitle = new JLabel();
         labelPlayerName = new JTextField();
         spinnerPlayerNumber = new JSpinner();
+        comboBoxDifficulty = new JComboBox();
         buttonBar = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
@@ -64,6 +65,7 @@ public class StartupView extends JFrame {
                     "[fill]" +
                     "[fill]" +
                     "[fill]" +
+                    "[fill]" +
                     "[fill]",
                     // rows
                     "[]" +
@@ -71,11 +73,12 @@ public class StartupView extends JFrame {
                     "[]" +
                     "[]"));
 
-                //---- label1 ----
+                //---- labelTitle ----
                 labelTitle.setText("Mini Racers");
                 contentPanel.add(labelTitle, "cell 5 0");
-                contentPanel.add(labelPlayerName, "cell 2 3");
+                contentPanel.add(labelPlayerName, "cell 1 3 4 1");
                 contentPanel.add(spinnerPlayerNumber, "cell 5 3");
+                contentPanel.add(comboBoxDifficulty, "cell 7 3");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -111,9 +114,9 @@ public class StartupView extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JPanel dialogPane;
     private JPanel contentPanel;
-    private JLabel labelTitle;
     private JTextField labelPlayerName;
     private JSpinner spinnerPlayerNumber;
+    private JComboBox comboBoxDifficulty;
     private JPanel buttonBar;
     private JButton okButton;
     private JButton cancelButton;
