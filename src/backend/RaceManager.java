@@ -1,6 +1,5 @@
 package backend;
 
-import backend.tyre.SoftCompound;
 import backend.tyre.Tyre;
 import backend.tyre.TyreType;
 import data.DataManager;
@@ -11,11 +10,12 @@ import java.util.ArrayList;
 public class RaceManager {
     private final DataManager dataManager = new DataManager();
     private final Race race;
+    private final Car playerCar;
 
     public RaceManager(String playerName, int playerNumber, Difficulty playerDifficulty) {
         Track track = dataManager.readRandomTrack();
         ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord(), track.getWeather().getWeatherType(), playerNumber);
-        Car playerCar = dataManager.generatePlayerCar(track.getLaptimeRecord(), track.getWeather().getWeatherType(), playerName, playerNumber, playerDifficulty, cars);
+        playerCar = dataManager.generatePlayerCar(track.getLaptimeRecord(), track.getWeather().getWeatherType(), playerName, playerNumber, playerDifficulty, cars);
         cars.add(playerCar);
         Safetycar safetycar = dataManager.generateSafetycar(track.getLaptimeRecord(), track.getWeather().getWeatherType());
         this.race = new Race(track, cars, safetycar);
@@ -36,26 +36,19 @@ public class RaceManager {
     //Methods for ControlView
 
     public double getFuelLeft() {
-        return Math.random() * 50; //todo
+        return playerCar.getFuel();
     }
 
     public void refuelCar(double liter) {
-        System.out.println("Refueled Car to " + liter + "Liter"); //todo
+        playerCar.addFuel(liter);
     }
 
     public void changeTyre(TyreType tyre) {
-        System.out.println("Changed Tyres to " + tyre); //todo
+        playerCar.changeTyre(tyre);
     }
 
     public Tyre[] getTyres() {
-        Tyre[] tyres = new Tyre[4]; //todo
-
-        for (int i = 0; i < tyres.length; i++) {
-            tyres[i] = new SoftCompound();
-            tyres[i].setTyreCondition(Math.random());
-        }
-
-        return tyres;
+        return playerCar.getTyres();
     }
 
 }

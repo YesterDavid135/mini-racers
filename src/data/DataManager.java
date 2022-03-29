@@ -1,6 +1,9 @@
 package data;
 
-import backend.*;
+import backend.Car;
+import backend.Driver;
+import backend.Safetycar;
+import backend.Track;
 import backend.tyre.HardCompound;
 import backend.tyre.SoftCompound;
 import backend.tyre.Tyre;
@@ -129,21 +132,21 @@ public class DataManager {
         }
     }
 
-    public ArrayList<Tyre> generateTyres(WeatherType weatherType) {
-        ArrayList<Tyre> tyres = new ArrayList<>();
+    public Tyre[] generateTyres(WeatherType weatherType) {
+        Tyre tyres[] = new Tyre[4];
         if (weatherType == WeatherType.WET) {
             for (int i = 0; i < 4; i++) {
-                tyres.add(new WetCompound());
+                tyres[i] = (new WetCompound());
             }
         } else {
             double randomValue = Math.random();
             if (randomValue > 0.5) {
                 for (int i = 0; i < 4; i++) {
-                    tyres.add(new SoftCompound());
+                    tyres[i] = (new SoftCompound());
                 }
             } else {
                 for (int i = 0; i < 4; i++) {
-                    tyres.add(new HardCompound());
+                    tyres[i] = (new HardCompound());
                 }
             }
         }

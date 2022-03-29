@@ -1,11 +1,8 @@
 package backend;
 
-import backend.tyre.Tyre;
-import backend.tyre.TyreType;
+import backend.tyre.*;
 import backend.weather.Weather;
 import backend.weather.WeatherType;
-
-import java.util.ArrayList;
 
 public class Car {
     private final Driver driver;
@@ -16,10 +13,10 @@ public class Car {
     private double racetimeTotal;
     private double fuel; //fuel in L, max = 50.0L
     private double damage; //no damage = 0.0, destroyed = 1.0
-    private ArrayList<Tyre> tyres;
+    private Tyre[] tyres;
     private double crashChance; //0% = 0, 100% = 100
 
-    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, ArrayList<Tyre> tyres) {
+    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres) {
         this.driver = driver;
         this.startPosition = startPosition;
         this.position = startPosition;
@@ -40,7 +37,7 @@ public class Car {
         double staminaInfluence = (1 - driver.getStamina()) / 100;
         double skillInfluence = (1 - driver.getSkill()) / 100;
         double damageInluence = damage / 50;
-        double tyreCompoundInfluence = tyres.get(0).getCompoundInfluence();
+        double tyreCompoundInfluence = tyres[0].getCompoundInfluence();
         double tyreConditionInfluence = (1 - getCombinedTyreCondition()) / 50;
         double randomValue = Math.random() / 150;
         double wrongTyreInfluence = getWrongTyreLaptimeInfluence(weather);
@@ -58,7 +55,7 @@ public class Car {
     }
 
     public void updateFuel() {
-        double updatedFuel = fuel - 1  - ((1 - driver.getSkill()) / 5);
+        double updatedFuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
         if (updatedFuel > 0) {
             fuel = updatedFuel;
         } else {
@@ -94,11 +91,11 @@ public class Car {
         double randomValue = Math.random() / 4;
         double wrongTyreInfluence = 1;
         if (weather.getWeatherType() == WeatherType.WET) {
-            if (tyres.get(0).getTyreType() != TyreType.WET) {
+            if (tyres[0].getTyreType() != TyreType.WET) {
                 wrongTyreInfluence = 1.3 + randomValue;
             }
         } else {
-            if (tyres.get(0).getTyreType() == TyreType.WET) {
+            if (tyres[0].getTyreType() == TyreType.WET) {
                 wrongTyreInfluence = 1.5;
             }
         }
@@ -109,11 +106,11 @@ public class Car {
     public double getWrongTyreRiskInfluence(Weather weather) {
         double wrongTyreInfluence = 1;
         if (weather.getWeatherType() == WeatherType.WET) {
-            if (tyres.get(0).getTyreType() != TyreType.WET) {
+            if (tyres[0].getTyreType() != TyreType.WET) {
                 wrongTyreInfluence = 3;
             }
         } else {
-            if (tyres.get(0).getTyreType() == TyreType.WET) {
+            if (tyres[0].getTyreType() == TyreType.WET) {
                 wrongTyreInfluence = 1.5;
             }
         }
@@ -158,5 +155,31 @@ public class Car {
 
     public double getCrashChance() {
         return crashChance;
+    }
+
+    /**
+     * Adds fuel to the car
+     * max fuel is 50.0 L
+     *
+     * @param liter how much fuel to add
+     */
+    public void addFuel(double liter) {
+        if (liter <= 0) return;
+        fuel += liter;
+        if (fuel > 50) fuel = 50;
+    }
+
+    public Tyre[] getTyres() {
+        return tyres;
+    }
+
+    public void changeTyre(TyreType type) {
+        for (int i = 0; i < tyres.length; i++) {
+            switch (type) {
+                case WET -> tyres[i] = new WetCompound();
+                case HARD -> tyres[i] = new HardCompound();
+                case SOFT -> tyres[i] = new SoftCompound();
+            }
+        }
     }
 }
