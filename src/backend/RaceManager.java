@@ -4,6 +4,7 @@ import backend.tyre.SoftCompound;
 import backend.tyre.Tyre;
 import backend.tyre.TyreType;
 import data.DataManager;
+import data.DiscordWebhook;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class RaceManager {
         ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord(), track.getWeather().getWeatherType());
         Safetycar safetycar = dataManager.generateSafetycar(track.getLaptimeRecord(), track.getWeather().getWeatherType());
         this.race = new Race(track, cars, safetycar);
+        new DiscordWebhook();
     }
 
     public Race getRace() {
