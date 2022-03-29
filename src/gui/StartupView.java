@@ -7,18 +7,27 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import backend.RaceManager;
 import net.miginfocom.swing.*;
 
 /**
  * @author unknown
  */
 public class StartupView extends JFrame {
+
     public StartupView() {
         initComponents();
+        this.setTitle("Start Up");
+        this.setVisible(true);
     }
 
     private void ok(ActionEvent e) {
-        // TODO add your code here
+        if (true) {
+            RaceManager raceManager = new RaceManager();
+            new RaceView(raceManager);
+            this.setVisible(false);
+        }
     }
 
     private void cancel(ActionEvent e) {
