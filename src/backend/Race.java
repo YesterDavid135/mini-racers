@@ -27,13 +27,15 @@ public class Race {
     }
 
     public void updateCarStats() {
+        Car lastcar = null;
         for (Car car : cars) {
             car.getDriver().updateStamina();
             car.updateFuel();
             car.updateTyres(car.getDriver().getSkill());
-            car.updateLaptime(track.getWeather(), isSafetycarDeployed(), safetycar.getSafetycarLaptimeMultiplier());
+            car.updateLaptime(track.getWeather(), isSafetycarDeployed(), safetycar.getSafetycarLaptimeMultiplier(), lastcar);
             car.updateCrashChance(track.getWeather());
             car.updateRacetimeTotal();
+            lastcar = car;
         }
         if (isSafetycarDeployed()) {
             safetycar.subtractLapsDeployedLeft();

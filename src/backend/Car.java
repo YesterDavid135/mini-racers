@@ -36,7 +36,7 @@ public class Car {
         this.position = position;
     }
 
-    public void updateLaptime(Weather weather, boolean isSafetycarDeployed, double safetycarLaptimeMultiplier) {
+    public void updateLaptime(Weather weather, boolean isSafetycarDeployed, double safetycarLaptimeMultiplier, Car lastcar) {
         double staminaInfluence = (1 - driver.getStamina()) / 100;
         double skillInfluence = (1 - driver.getSkill()) / 100;
         double damageInluence = damage / 50;
@@ -47,6 +47,15 @@ public class Car {
 
         if (isSafetycarDeployed) {
             laptime = laptimeReference * (1 + randomValue) * safetycarLaptimeMultiplier;
+            if (lastcar != null && lastcar.position != 0) {
+                double minLapTime = lastcar.racetimeTotal - racetimeTotal;
+                double maxLapTime = lastcar.racetimeTotal + 0.2 - racetimeTotal;
+                if (laptime < minLapTime)
+                    laptime = minLapTime + randomValue;
+                else if (laptime > maxLapTime)
+                    laptime = maxLapTime - randomValue;
+
+            }
         } else {
             laptime = laptimeReference * (1 + staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence + randomValue) * tyreCompoundInfluence * wrongTyreInfluence;
         }
@@ -58,7 +67,7 @@ public class Car {
     }
 
     public void updateFuel() {
-        double updatedFuel = fuel - 1  - ((1 - driver.getSkill()) / 5);
+        double updatedFuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
         if (updatedFuel > 0) {
             fuel = updatedFuel;
         } else {
