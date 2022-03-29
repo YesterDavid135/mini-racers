@@ -18,7 +18,6 @@ public class StartupView extends JFrame {
 
     public StartupView() {
         initComponents();
-        this.setTitle("Start Up");
         this.setVisible(true);
     }
 
@@ -47,6 +46,9 @@ public class StartupView extends JFrame {
         cancelButton = new JButton();
 
         //======== this ========
+        setAlwaysOnTop(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Start up");
         var contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -107,7 +109,7 @@ public class StartupView extends JFrame {
         }
         contentPane.add(dialogPane, BorderLayout.CENTER);
         pack();
-        setLocationRelativeTo(getOwner());
+        setLocationRelativeTo(null);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
