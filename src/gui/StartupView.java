@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import backend.RaceManager;
+import data.Difficulty;
 import net.miginfocom.swing.*;
 
 /**
@@ -75,6 +76,9 @@ public class StartupView extends JFrame {
                 contentPanel.add(labelTitle, "cell 1 0,alignx center,growx 0");
                 contentPanel.add(spinnerPlayerNumber, "cell 0 3");
                 contentPanel.add(labelPlayerName, "cell 1 3");
+
+                //---- comboBoxDifficulty ----
+                comboBoxDifficulty.setModel(new DefaultComboBoxModel<>(Difficulty.values()));
                 contentPanel.add(comboBoxDifficulty, "cell 2 3");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
