@@ -105,6 +105,9 @@ public class RaceView extends JFrame implements ActionListener {
         }
         raceTable.setModel(model);
         labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
+        if (raceManager.getRace().getLapsLeft() <= 0){
+            buttonNextLap.setEnabled(false);
+        }
         labelSafetycarDeployed.setVisible(raceManager.getRace().isSafetycarDeployed());
     }
 
