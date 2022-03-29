@@ -23,7 +23,7 @@ public class StartupView extends JFrame {
     }
 
     private void ok(ActionEvent e) {
-        if (true) {
+        if (!labelPlayerName.getText().isEmpty() && (Integer) spinnerPlayerNumber.getValue() < 100 && (Integer) spinnerPlayerNumber.getValue() > 0) {
             RaceManager raceManager = new RaceManager();
             new RaceView(raceManager);
             this.setVisible(false);
@@ -38,9 +38,9 @@ public class StartupView extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         dialogPane = new JPanel();
         contentPanel = new JPanel();
-        label1 = new JLabel();
-        playerName = new JTextField();
-        playerNumber = new JSpinner();
+        labelTitle = new JLabel();
+        labelPlayerName = new JTextField();
+        spinnerPlayerNumber = new JSpinner();
         buttonBar = new JPanel();
         okButton = new JButton();
         cancelButton = new JButton();
@@ -72,10 +72,10 @@ public class StartupView extends JFrame {
                     "[]"));
 
                 //---- label1 ----
-                label1.setText("Mini Racers");
-                contentPanel.add(label1, "cell 5 0");
-                contentPanel.add(playerName, "cell 2 3");
-                contentPanel.add(playerNumber, "cell 5 3");
+                labelTitle.setText("Mini Racers");
+                contentPanel.add(labelTitle, "cell 5 0");
+                contentPanel.add(labelPlayerName, "cell 2 3");
+                contentPanel.add(spinnerPlayerNumber, "cell 5 3");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -111,9 +111,9 @@ public class StartupView extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JPanel dialogPane;
     private JPanel contentPanel;
-    private JLabel label1;
-    private JTextField playerName;
-    private JSpinner playerNumber;
+    private JLabel labelTitle;
+    private JTextField labelPlayerName;
+    private JSpinner spinnerPlayerNumber;
     private JPanel buttonBar;
     private JButton okButton;
     private JButton cancelButton;
