@@ -25,7 +25,7 @@ public class DataManager {
                 String[] driverInfo = scanner.nextLine().split(",");
                 String driverName = driverInfo[0];
                 int driverNumber = Integer.parseInt(driverInfo[1]);
-                Driver driver = new Driver(driverName, driverNumber);
+                Driver driver = new Driver(driverName, driverNumber, generateDifficulty());
                 drivers.add(driver);
             }
             scanner.close();
@@ -47,7 +47,7 @@ public class DataManager {
                 String[] driverInfo = scanner.nextLine().split(",");
                 String driverName = driverInfo[0];
                 int driverNumber = Integer.parseInt(driverInfo[1]);
-                Driver driver = new Driver(driverName, driverNumber);
+                Driver driver = new Driver(driverName, driverNumber, generateDifficulty());
                 drivers.add(driver);
             }
             scanner.close();
@@ -93,6 +93,11 @@ public class DataManager {
         return cars;
     }
 
+    public Car generatePlayerCar(double laptimeReference, WeatherType weatherType, String playerName, int playerNumber, Difficulty playerDifficulty, ArrayList<Car> cars) {
+        Driver driver = new Driver(playerName, playerNumber, playerDifficulty);
+        return new Car(driver, cars.size(), laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType));
+    }
+
     public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
         Driver driver = readRandomSafetycarDriver();
         return new Safetycar(driver, 0, laptimeReference, 0, generateTyres(weatherType), 1.4);
@@ -106,6 +111,19 @@ public class DataManager {
             return new Weather(WeatherType.CLOUDY, 1);
         } else {
             return new Weather(WeatherType.WET, 1.5);
+        }
+    }
+
+    public Difficulty generateDifficulty() {
+        double randomValue = Math.random();
+        if (randomValue < 0.3) {
+            return Difficulty.EASY;
+        } else if (randomValue < 0.6) {
+            return Difficulty.INTERMEDIATE;
+        } else if (randomValue < 0.9) {
+            return Difficulty.HARD;
+        } else {
+            return Difficulty.HELL;
         }
     }
 

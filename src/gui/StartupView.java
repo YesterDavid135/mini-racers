@@ -24,7 +24,7 @@ public class StartupView extends JFrame {
 
     private void ok(ActionEvent e) {
         if (!labelPlayerName.getText().isEmpty() && (Integer) spinnerPlayerNumber.getValue() < 100 && (Integer) spinnerPlayerNumber.getValue() > 0) {
-            RaceManager raceManager = new RaceManager();
+            RaceManager raceManager = new RaceManager(labelPlayerName.getText(), (Integer) spinnerPlayerNumber.getValue(), (Difficulty) comboBoxDifficulty.getSelectedItem());
             new RaceView(raceManager);
             this.setVisible(false);
         }

@@ -4,6 +4,7 @@ import backend.tyre.SoftCompound;
 import backend.tyre.Tyre;
 import backend.tyre.TyreType;
 import data.DataManager;
+import data.Difficulty;
 
 import java.util.ArrayList;
 
@@ -11,9 +12,11 @@ public class RaceManager {
     private final DataManager dataManager = new DataManager();
     private final Race race;
 
-    public RaceManager() {
+    public RaceManager(String playerName, int playerNumber, Difficulty playerDifficulty) {
         Track track = dataManager.readRandomTrack();
         ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord(), track.getWeather().getWeatherType());
+        Car playerCar = dataManager.generatePlayerCar(track.getLaptimeRecord(), track.getWeather().getWeatherType(), playerName, playerNumber, playerDifficulty, cars);
+        cars.add(playerCar);
         Safetycar safetycar = dataManager.generateSafetycar(track.getLaptimeRecord(), track.getWeather().getWeatherType());
         this.race = new Race(track, cars, safetycar);
     }
