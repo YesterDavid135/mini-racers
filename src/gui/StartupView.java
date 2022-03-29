@@ -35,11 +35,11 @@ public class StartupView extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        dialogPane = new JPanel();
-        contentPanel = new JPanel();
+        var dialogPane = new JPanel();
+        var contentPanel = new JPanel();
         var labelTitle = new JLabel();
-        labelPlayerName = new JTextField();
         spinnerPlayerNumber = new JSpinner();
+        labelPlayerName = new JTextField();
         comboBoxDifficulty = new JComboBox();
         buttonBar = new JPanel();
         okButton = new JButton();
@@ -59,15 +59,10 @@ public class StartupView extends JFrame {
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "insets dialog,hidemode 3",
+                    "insets dialog,hidemode 3,alignx center,gapx 10",
                     // columns
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]" +
+                    "[51,fill]" +
+                    "[106,fill]" +
                     "[fill]",
                     // rows
                     "[]" +
@@ -77,10 +72,10 @@ public class StartupView extends JFrame {
 
                 //---- labelTitle ----
                 labelTitle.setText("Mini Racers");
-                contentPanel.add(labelTitle, "cell 5 0");
-                contentPanel.add(labelPlayerName, "cell 1 3 4 1");
-                contentPanel.add(spinnerPlayerNumber, "cell 5 3");
-                contentPanel.add(comboBoxDifficulty, "cell 7 3");
+                contentPanel.add(labelTitle, "cell 1 0,alignx center,growx 0");
+                contentPanel.add(spinnerPlayerNumber, "cell 0 3");
+                contentPanel.add(labelPlayerName, "cell 1 3");
+                contentPanel.add(comboBoxDifficulty, "cell 2 3");
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -114,10 +109,8 @@ public class StartupView extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JPanel dialogPane;
-    private JPanel contentPanel;
-    private JTextField labelPlayerName;
     private JSpinner spinnerPlayerNumber;
+    private JTextField labelPlayerName;
     private JComboBox comboBoxDifficulty;
     private JPanel buttonBar;
     private JButton okButton;

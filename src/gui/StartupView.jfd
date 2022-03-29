@@ -11,12 +11,18 @@ new FormModel {
 			"title": "Start up"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
+				auxiliary() {
+					"JavaCodeGenerator.variableLocal": true
+				}
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
-					"$layoutConstraints": "insets dialog,hidemode 3"
-					"$columnConstraints": "[fill][fill][fill][fill][fill][fill][fill][fill]"
+					"$layoutConstraints": "insets dialog,hidemode 3,alignx center,gapx 10"
+					"$columnConstraints": "[51,fill][106,fill][fill]"
 					"$rowConstraints": "[][][][]"
 				} ) {
 					name: "contentPanel"
+					auxiliary() {
+						"JavaCodeGenerator.variableLocal": true
+					}
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "labelTitle"
 						"text": "Mini Racers"
@@ -24,22 +30,22 @@ new FormModel {
 							"JavaCodeGenerator.variableLocal": true
 						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 5 0"
-					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "labelPlayerName"
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 3 4 1"
+						"value": "cell 1 0,alignx center,growx 0"
 					} )
 					add( new FormComponent( "javax.swing.JSpinner" ) {
 						name: "spinnerPlayerNumber"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 5 3"
+						"value": "cell 0 3"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "labelPlayerName"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 3"
 					} )
 					add( new FormComponent( "javax.swing.JComboBox" ) {
 						name: "comboBoxDifficulty"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 7 3"
+						"value": "cell 2 3"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"
