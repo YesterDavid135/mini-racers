@@ -14,7 +14,7 @@ public class RaceManager {
 
     public RaceManager(String playerName, int playerNumber, Difficulty playerDifficulty) {
         Track track = dataManager.readRandomTrack();
-        ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord(), track.getWeather().getWeatherType());
+        ArrayList<Car> cars = dataManager.generateCars(track.getLaptimeRecord(), track.getWeather().getWeatherType(), playerNumber);
         Car playerCar = dataManager.generatePlayerCar(track.getLaptimeRecord(), track.getWeather().getWeatherType(), playerName, playerNumber, playerDifficulty, cars);
         cars.add(playerCar);
         Safetycar safetycar = dataManager.generateSafetycar(track.getLaptimeRecord(), track.getWeather().getWeatherType());

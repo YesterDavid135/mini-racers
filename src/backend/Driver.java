@@ -4,7 +4,7 @@ import data.Difficulty;
 
 public class Driver {
     private final String name;
-    private final int number;
+    private int number;
     private double skill; //pro = 1.0, beginner = 0.0
     private double stamina; //fit = 1.0, tired = 0.0
 
@@ -42,6 +42,10 @@ public class Driver {
 
     public int getNumber() {
         return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public double getSkill() {

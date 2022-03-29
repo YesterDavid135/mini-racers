@@ -83,11 +83,13 @@ public class DataManager {
         return tracks.get(0);
     }
 
-    public ArrayList<Car> generateCars(double laptimeReference, WeatherType weatherType) {
+    public ArrayList<Car> generateCars(double laptimeReference, WeatherType weatherType, int playerNumber) {
         ArrayList<Driver> drivers = readDrivers();
         ArrayList<Car> cars = new ArrayList<>();
         for (int i = 0; i < drivers.size(); i++) {
-            Car car = new Car(drivers.get(i), i + 1, laptimeReference, i * 0.5, generateTyres(weatherType));
+            Driver driver = drivers.get(i);
+            if (driver.getNumber() == playerNumber) driver.setNumber(85);
+            Car car = new Car(driver, i + 1, laptimeReference, i * 0.5, generateTyres(weatherType));
             cars.add(car);
         }
         return cars;
