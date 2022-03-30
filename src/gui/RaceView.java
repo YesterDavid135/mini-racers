@@ -1,5 +1,6 @@
 package gui;
 
+import backend.Car;
 import backend.RaceManager;
 
 import javax.swing.*;
@@ -7,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
@@ -29,6 +32,7 @@ public class RaceView extends JFrame implements ActionListener {
 
     private final CrashView crashView;
     private final ControlView controlView;
+    private final DriverInfoView driverInfoView;
 
     public RaceView(RaceManager raceManager) {
         this.raceManager = raceManager;
@@ -64,6 +68,16 @@ public class RaceView extends JFrame implements ActionListener {
 
         raceTable.setModel(model);
         raceTable.setRowHeight(30);
+        raceTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int i = raceTable.getSelectedRow();
+                String s = (String) raceTable.getValueAt(i, 2);
+                s = s.substring(1);
+                int carNumber = Integer.parseInt(s);
+                for (Car car :raceManager.getRace().getCars()) if (car.getDriver().getNumber() == carNumber) driverInfoView.loadTelemetry(car);
+            };
+        });
         panel.add(scrollPane);
         frame.add(panel);
 
@@ -77,6 +91,9 @@ public class RaceView extends JFrame implements ActionListener {
 
         controlView = new ControlView(raceManager,
                 frame.getX(),
+                frame.getY() + frame.getHeight() + 1);
+
+        driverInfoView = new DriverInfoView(raceManager, frame.getX() + frame.getWidth() + 1,
                 frame.getY() + frame.getHeight() + 1);
         reloadGui();
     }
@@ -105,7 +122,7 @@ public class RaceView extends JFrame implements ActionListener {
         }
         raceTable.setModel(model);
         labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
-        if (raceManager.getRace().getLapsLeft() <= 0){
+        if (raceManager.getRace().getLapsLeft() <= 0) {
             buttonNextLap.setEnabled(false);
         }
         labelSafetycarDeployed.setVisible(raceManager.getRace().isSafetycarDeployed());
