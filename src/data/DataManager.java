@@ -92,7 +92,7 @@ public class DataManager {
         for (int i = 0; i < drivers.size(); i++) {
             Driver driver = drivers.get(i);
             if (driver.getNumber() == playerNumber) driver.setNumber(85);
-            Car car = new Car(driver, i + 1, laptimeReference, i * 0.5, generateTyres(weatherType));
+            Car car = new Car(driver, i + 1, laptimeReference, i * 0.5, generateTyres(weatherType), false);
             cars.add(car);
         }
         return cars;
@@ -100,7 +100,7 @@ public class DataManager {
 
     public Car generatePlayerCar(double laptimeReference, WeatherType weatherType, String playerName, int playerNumber, Difficulty playerDifficulty, ArrayList<Car> cars) {
         Driver driver = new Driver(playerName, playerNumber, playerDifficulty);
-        return new Car(driver, cars.size(), laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType));
+        return new Car(driver, cars.size(), laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType), true);
     }
 
     public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
