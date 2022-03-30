@@ -1,6 +1,9 @@
 package data;
 
-import backend.*;
+import backend.Car;
+import backend.Driver;
+import backend.Safetycar;
+import backend.Track;
 import backend.tyre.HardCompound;
 import backend.tyre.SoftCompound;
 import backend.tyre.Tyre;
@@ -25,7 +28,7 @@ public class DataManager {
                 String[] driverInfo = scanner.nextLine().split(",");
                 String driverName = driverInfo[0];
                 int driverNumber = Integer.parseInt(driverInfo[1]);
-                Driver driver = new Driver(driverName, driverNumber);
+                Driver driver = new Driver(driverName, driverNumber, generateDifficulty());
                 drivers.add(driver);
             }
             scanner.close();
@@ -47,7 +50,7 @@ public class DataManager {
                 String[] driverInfo = scanner.nextLine().split(",");
                 String driverName = driverInfo[0];
                 int driverNumber = Integer.parseInt(driverInfo[1]);
-                Driver driver = new Driver(driverName, driverNumber);
+                Driver driver = new Driver(driverName, driverNumber, generateDifficulty());
                 drivers.add(driver);
             }
             scanner.close();
@@ -83,14 +86,21 @@ public class DataManager {
         return tracks.get(0);
     }
 
-    public ArrayList<Car> generateCars(double laptimeReference, WeatherType weatherType) {
+    public ArrayList<Car> generateCars(double laptimeReference, WeatherType weatherType, int playerNumber) {
         ArrayList<Driver> drivers = readDrivers();
         ArrayList<Car> cars = new ArrayList<>();
         for (int i = 0; i < drivers.size(); i++) {
-            Car car = new Car(drivers.get(i), i + 1, laptimeReference, i * 0.5, generateTyres(weatherType));
+            Driver driver = drivers.get(i);
+            if (driver.getNumber() == playerNumber) driver.setNumber(85);
+            Car car = new Car(driver, i + 1, laptimeReference, i * 0.5, generateTyres(weatherType));
             cars.add(car);
         }
         return cars;
+    }
+
+    public Car generatePlayerCar(double laptimeReference, WeatherType weatherType, String playerName, int playerNumber, Difficulty playerDifficulty, ArrayList<Car> cars) {
+        Driver driver = new Driver(playerName, playerNumber, playerDifficulty);
+        return new Car(driver, cars.size(), laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType));
     }
 
     public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
@@ -109,21 +119,34 @@ public class DataManager {
         }
     }
 
-    public ArrayList<Tyre> generateTyres(WeatherType weatherType) {
-        ArrayList<Tyre> tyres = new ArrayList<>();
+    public Difficulty generateDifficulty() {
+        double randomValue = Math.random();
+        if (randomValue < 0.3) {
+            return Difficulty.EASY;
+        } else if (randomValue < 0.6) {
+            return Difficulty.INTERMEDIATE;
+        } else if (randomValue < 0.9) {
+            return Difficulty.HARD;
+        } else {
+            return Difficulty.HELL;
+        }
+    }
+
+    public Tyre[] generateTyres(WeatherType weatherType) {
+        Tyre tyres[] = new Tyre[4];
         if (weatherType == WeatherType.WET) {
             for (int i = 0; i < 4; i++) {
-                tyres.add(new WetCompound());
+                tyres[i] = (new WetCompound());
             }
         } else {
             double randomValue = Math.random();
             if (randomValue > 0.5) {
                 for (int i = 0; i < 4; i++) {
-                    tyres.add(new SoftCompound());
+                    tyres[i] = (new SoftCompound());
                 }
             } else {
                 for (int i = 0; i < 4; i++) {
-                    tyres.add(new HardCompound());
+                    tyres[i] = (new HardCompound());
                 }
             }
         }
