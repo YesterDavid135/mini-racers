@@ -40,11 +40,11 @@ public class RaceManager {
     }
 
     public void refuelCar(double liter) {
-        playerCar.addFuel(liter);
+        playerCar.refuel(liter);
     }
 
     public void changeTyre(TyreType tyre) {
-        playerCar.changeTyre(tyre);
+        playerCar.changeTyres(tyre);
     }
 
     public Tyre[] getTyres() {

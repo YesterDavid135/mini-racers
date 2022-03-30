@@ -6,6 +6,7 @@ import backend.weather.WeatherType;
 
 public class Car {
     private final Driver driver;
+    private final boolean isPlayer;
     private final int startPosition;
     private int position;
     private double laptime; //in seconds: 100.0 = 1:40.0
@@ -15,8 +16,9 @@ public class Car {
     private double damage; //no damage = 0.0, destroyed = 1.0
     private Tyre[] tyres;
     private double crashChance; //0% = 0, 100% = 100
+    private double pitStopTime;
 
-    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres) {
+    public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres, boolean isPlayer) {
         this.driver = driver;
         this.startPosition = startPosition;
         this.position = startPosition;
@@ -27,6 +29,7 @@ public class Car {
         this.damage = 0;
         this.tyres = tyres;
         this.crashChance = 0;
+        this.isPlayer = isPlayer;
     }
 
     public void updatePosition(int position) {
@@ -56,7 +59,8 @@ public class Car {
         } else {
             laptime = laptimeReference * (1 + staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence + randomValue) * tyreCompoundInfluence * wrongTyreInfluence;
         }
-
+        laptime += pitStopTime;
+        pitStopTime = 0;
     }
 
     public void updateRacetimeTotal() {
@@ -64,17 +68,31 @@ public class Car {
     }
 
     public void updateFuel() {
-        double updatedFuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
-        if (updatedFuel > 0) {
-            fuel = updatedFuel;
-        } else {
-            fuel = 0;
+        fuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
+        if (fuel <= 0) fuel = 0;
+        else if (fuel < 25 && !isPlayer) {
+            double refuelChance = Math.random();
+            if (refuelChance > 0.25) {
+                refuel((Math.random() * 25) + 5);
+                System.out.println("Refueled " + driver.getName()); //todo
+            }
         }
     }
 
-    public void updateTyres(double driverSkill) {
+    public void updateTyres(double driverSkill, WeatherType weather) {
         for (Tyre tyre : tyres) {
             tyre.updateTyreCondition(driverSkill);
+        }
+        if (getCombinedTyreCondition() < 0.5 && !isPlayer) {
+            double pitChance = Math.random();
+            if (pitChance > 0.6) {
+                double weatherDumbTyreChance = Math.random();
+                if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95)
+                    changeTyres(TyreType.WET);
+                else
+                    changeTyres(Math.random() >= 0.5 ? TyreType.HARD : TyreType.SOFT);
+                System.out.println("Pitstop " + driver.getName());
+            }
         }
     }
 
@@ -82,7 +100,7 @@ public class Car {
         double staminaInfluence = (1 - driver.getStamina()) / 4; //up to 0.25% per lap
         double skillInfluence = (1 - driver.getSkill()) / 8; //up to 0.125% per lap
         double damageInluence = damage / 8; //up to 0.125% per lap
-        double tyreConditionInfluence = (1 - getCombinedTyreCondition()) / 2; //up to 0.5% per lap
+        double tyreConditionInfluence = getCombinedTyreCondition() == 0 ? 10 : (1 - getCombinedTyreCondition()) / 2; //up to 0.5% per lap or 10% if all tyres down
         double weatherRiskInfluence = weather.getRiskMultiplier();
         double wrongTyreInfluence = getWrongTyreRiskInfluence(weather);
         crashChance = (staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence) * weatherRiskInfluence * wrongTyreInfluence;
@@ -172,7 +190,8 @@ public class Car {
      *
      * @param liter how much fuel to add
      */
-    public void addFuel(double liter) {
+    public void refuel(double liter) {
+        calculatePitStopTime();
         if (liter <= 0) return;
         fuel += liter;
         if (fuel > 50) fuel = 50;
@@ -182,7 +201,12 @@ public class Car {
         return tyres;
     }
 
-    public void changeTyre(TyreType type) {
+    private void calculatePitStopTime(){
+       this.pitStopTime =  (Math.random() * 5) + 20;
+    }
+
+    public void changeTyres(TyreType type) {
+        calculatePitStopTime();
         for (int i = 0; i < tyres.length; i++) {
             switch (type) {
                 case WET -> tyres[i] = new WetCompound();

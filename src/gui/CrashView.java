@@ -18,7 +18,7 @@ public class CrashView extends JFrame implements ActionListener {
     private final JTable crashTable = new JTable();
     private final JScrollPane scrollPane = new JScrollPane(crashTable);
 
-    private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Driver", "Laps left", "Crash Probability"}, 0);
+    private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Driver", "Laps left", "Crash Probability", "Fuel"}, 0);
 
     private final RaceManager raceManager;
 
@@ -53,6 +53,7 @@ public class CrashView extends JFrame implements ActionListener {
             row.addElement(car.getDriver().getName());
             row.addElement(lapsleft + " Laps");
             row.addElement(getFormattedCrashChance(car.getCrashChance()) + "%");
+            row.addElement(car.getFuel() + "L");
 
             model.addRow(row);
         }

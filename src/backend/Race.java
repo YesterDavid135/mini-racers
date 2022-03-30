@@ -89,14 +89,13 @@ public class Race {
         for (Car car : cars) {
             double crashChance = car.getCrashChance();
             double randomValue = Math.random() * 100;
-            if (crashChance >= randomValue) {
+            if (crashChance >= randomValue || car.getFuel() == 0) {
                 crashedCarsThisLap.add(car);
                 crashedCars.add(car);
             }
         }
-        if (crashedCarsThisLap.size() > 0) {
-            deploySafetycar();
-        }
+        if (crashedCarsThisLap.size() > 0) deploySafetycar();
+
         for (Car car : crashedCarsThisLap) {
             cars.remove(car);
         }

@@ -8,7 +8,7 @@ public class Safetycar extends Car {
     private double safetycarLaptimeMultiplier;
 
     public Safetycar(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres, double safetycarLaptimeMultiplier) {
-        super(driver, startPosition, laptimeReference, racetimeTotal, tyres);
+        super(driver, startPosition, laptimeReference, racetimeTotal, tyres, false);
         this.lapsDeployedLeft = 0;
         this.safetycarLaptimeMultiplier = safetycarLaptimeMultiplier;
     }
