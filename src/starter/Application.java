@@ -1,6 +1,5 @@
 package starter;
 
-import backend.RaceManager;
 import gui.StartupView;
 
 public class Application {
