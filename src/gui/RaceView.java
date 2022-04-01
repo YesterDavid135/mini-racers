@@ -41,7 +41,6 @@ public class RaceView extends JFrame implements ActionListener {
         frame.setTitle("Mini Racers");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        labelLap.setText("LAPS LEFT: " + raceManager.getRace().getLapsLeft());
         labelLap.setBounds(10, 430, 200, 50);
         frame.add(labelLap);
 
@@ -121,7 +120,7 @@ public class RaceView extends JFrame implements ActionListener {
             model.addRow(row);
         }
         raceTable.setModel(model);
-        labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
+        labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft() + " / " + raceManager.getRace().getTrack().getAmountLaps());
         if (raceManager.getRace().getLapsLeft() <= 0) {
             buttonNextLap.setEnabled(false);
         }
