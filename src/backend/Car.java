@@ -171,11 +171,17 @@ public class Car {
     }
 
     private void calculateChangeTyresTime() {
-        this.pitStopTime += (Math.random() * 5) + 20;
+        if (this.pitStopTime == 0) {
+            this.pitStopTime = 20;
+        }
+        this.pitStopTime += 2 + (Math.random() * 2);
     }
 
     private void calculateRefuelTime(double liter) {
-        this.pitStopTime += (Math.random() * 5) + (liter / 2);
+        if (this.pitStopTime == 0) {
+            this.pitStopTime = 20;
+        }
+        this.pitStopTime += liter / 2;
     }
 
     public Driver getDriver() {
