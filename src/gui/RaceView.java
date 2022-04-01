@@ -116,7 +116,7 @@ public class RaceView extends JFrame implements ActionListener {
                 if (raceManager.getRace().isSafetycarDeployed() && i == 1) {
                     row.addElement("Interval");
                 }
-                row.addElement("+" + getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
+                row.addElement(getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
             }
             model.addRow(row);
         }
@@ -146,9 +146,9 @@ public class RaceView extends JFrame implements ActionListener {
         //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.0");
         if (delta < 1) {
-            return "0" + df.format(delta);
+            return "+0" + df.format(delta);
         } else {
-            return df.format(delta);
+            return "+" + df.format(delta);
         }
     }
 

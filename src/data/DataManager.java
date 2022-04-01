@@ -100,7 +100,7 @@ public class DataManager {
 
     public Car generatePlayerCar(double laptimeReference, WeatherType weatherType, String playerName, int playerNumber, Difficulty playerDifficulty, ArrayList<Car> cars) {
         Driver driver = new Driver(playerName, playerNumber, playerDifficulty);
-        return new Car(driver, cars.size(), laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType), true);
+        return new Car(driver, cars.size() + 1, laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType), true);
     }
 
     public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
@@ -133,7 +133,7 @@ public class DataManager {
     }
 
     public Tyre[] generateTyres(WeatherType weatherType) {
-        Tyre tyres[] = new Tyre[4];
+        Tyre[] tyres = new Tyre[4];
         if (weatherType == WeatherType.WET) {
             for (int i = 0; i < 4; i++) {
                 tyres[i] = (new WetCompound());

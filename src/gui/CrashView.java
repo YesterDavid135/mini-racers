@@ -52,9 +52,8 @@ public class CrashView extends JFrame implements ActionListener {
             Vector<String> row = new Vector<>();
             row.addElement(car.getDriver().getName());
             row.addElement(lapsleft + " Laps");
-            row.addElement(getFormattedCrashChance(car.getCrashChance()) + "%");
-            row.addElement(car.getFuel() + "L");
-
+            row.addElement(getFormattedCrashChance(car.getCrashChance()));
+            row.addElement(getFormattedFuel(car.getFuel()));
             model.addRow(row);
         }
     }
@@ -63,9 +62,19 @@ public class CrashView extends JFrame implements ActionListener {
         //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (crashChance < 1) {
-            return "0" + df.format(crashChance);
+            return "0" + df.format(crashChance) + "%";
         } else {
-            return df.format(crashChance);
+            return df.format(crashChance) + "%";
+        }
+    }
+
+    public String getFormattedFuel(double fuel) {
+        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (fuel < 1) {
+            return "0" + df.format(fuel) + "L";
+        } else {
+            return df.format(fuel) + "L";
         }
     }
 

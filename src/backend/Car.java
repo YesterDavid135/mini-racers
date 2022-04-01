@@ -70,11 +70,11 @@ public class Car {
     public void updateFuel() {
         fuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
         if (fuel <= 0) fuel = 0;
-        else if (fuel < 25 && !isPlayer) {
+        else if (fuel < 5 && !isPlayer) {
             double refuelChance = Math.random();
             if (refuelChance > 0.25) {
+                System.out.println("Refueled " + driver.getName() + " " + getFuel()); //todo
                 refuel((Math.random() * 25) + 5);
-                System.out.println("Refueled " + driver.getName()); //todo
             }
         }
     }
@@ -83,15 +83,17 @@ public class Car {
         for (Tyre tyre : tyres) {
             tyre.updateTyreCondition(driverSkill);
         }
-        if (getCombinedTyreCondition() < 0.5 && !isPlayer) {
+        if (getCombinedTyreCondition() < 0.2 && !isPlayer) {
             double pitChance = Math.random();
             if (pitChance > 0.6) {
                 double weatherDumbTyreChance = Math.random();
-                if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95)
+                System.out.println("Pitstop " + driver.getName() + " " + getCombinedTyreCondition());
+                if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95) {
                     changeTyres(TyreType.WET);
-                else
+                }
+                else {
                     changeTyres(Math.random() >= 0.5 ? TyreType.HARD : TyreType.SOFT);
-                System.out.println("Pitstop " + driver.getName());
+                }
             }
         }
     }
