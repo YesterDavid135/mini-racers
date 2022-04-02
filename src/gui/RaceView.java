@@ -41,7 +41,6 @@ public class RaceView extends JFrame implements ActionListener {
         frame.setTitle("Mini Racers");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        labelLap.setText("LAPS LEFT: " + raceManager.getRace().getLapsLeft());
         labelLap.setBounds(10, 430, 200, 50);
         frame.add(labelLap);
 
@@ -116,12 +115,12 @@ public class RaceView extends JFrame implements ActionListener {
                 if (raceManager.getRace().isSafetycarDeployed() && i == 1) {
                     row.addElement("Interval");
                 }
-                row.addElement("+" + getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
+                row.addElement(getFormattedDelta(raceManager.getRace().getDeltaList().get(i - 1)));
             }
             model.addRow(row);
         }
         raceTable.setModel(model);
-        labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft());
+        labelLap.setText("Laps Left: " + raceManager.getRace().getLapsLeft() + " / " + raceManager.getRace().getTrack().getAmountLaps());
         if (raceManager.getRace().getLapsLeft() <= 0) {
             buttonNextLap.setEnabled(false);
         }
@@ -146,9 +145,9 @@ public class RaceView extends JFrame implements ActionListener {
         //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.0");
         if (delta < 1) {
-            return "0" + df.format(delta);
+            return "+0" + df.format(delta);
         } else {
-            return df.format(delta);
+            return "+" + df.format(delta);
         }
     }
 

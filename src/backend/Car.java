@@ -70,11 +70,11 @@ public class Car {
     public void updateFuel() {
         fuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
         if (fuel <= 0) fuel = 0;
-        else if (fuel < 25 && !isPlayer) {
+        else if (fuel < 5 && !isPlayer) {
             double refuelChance = Math.random();
             if (refuelChance > 0.25) {
+                System.out.println("Refueled " + driver.getName() + " " + getFuel()); //todo
                 refuel((Math.random() * 25) + 5);
-                System.out.println("Refueled " + driver.getName()); //todo
             }
         }
     }
@@ -83,15 +83,17 @@ public class Car {
         for (Tyre tyre : tyres) {
             tyre.updateTyreCondition(driverSkill);
         }
-        if (getCombinedTyreCondition() < 0.5 && !isPlayer) {
+        if (getCombinedTyreCondition() < 0.2 && !isPlayer) {
             double pitChance = Math.random();
             if (pitChance > 0.6) {
                 double weatherDumbTyreChance = Math.random();
-                if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95)
+                System.out.println("Pitstop " + driver.getName() + " " + getCombinedTyreCondition());
+                if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95) {
                     changeTyres(TyreType.WET);
-                else
+                }
+                else {
                     changeTyres(Math.random() >= 0.5 ? TyreType.HARD : TyreType.SOFT);
-                System.out.println("Pitstop " + driver.getName());
+                }
             }
         }
     }
@@ -144,6 +146,44 @@ public class Car {
         return wrongTyreInfluence;
     }
 
+    /**
+     * Adds fuel to the car
+     * max fuel is 50.0 L
+     *
+     * @param liter how much fuel to add
+     */
+    public void refuel(double liter) {
+        if (liter <= 0) return;
+        fuel += liter;
+        if (fuel > 50) fuel = 50;
+        calculateRefuelTime(liter);
+    }
+
+    public void changeTyres(TyreType type) {
+        for (int i = 0; i < tyres.length; i++) {
+            switch (type) {
+                case WET -> tyres[i] = new WetCompound();
+                case HARD -> tyres[i] = new HardCompound();
+                case SOFT -> tyres[i] = new SoftCompound();
+            }
+        }
+        calculateChangeTyresTime();
+    }
+
+    private void calculateChangeTyresTime() {
+        if (this.pitStopTime == 0) {
+            this.pitStopTime = 20;
+        }
+        this.pitStopTime += 2 + (Math.random() * 2);
+    }
+
+    private void calculateRefuelTime(double liter) {
+        if (this.pitStopTime == 0) {
+            this.pitStopTime = 20;
+        }
+        this.pitStopTime += liter / 2;
+    }
+
     public Driver getDriver() {
         return driver;
     }
@@ -184,35 +224,7 @@ public class Car {
         return crashChance;
     }
 
-    /**
-     * Adds fuel to the car
-     * max fuel is 50.0 L
-     *
-     * @param liter how much fuel to add
-     */
-    public void refuel(double liter) {
-        calculatePitStopTime();
-        if (liter <= 0) return;
-        fuel += liter;
-        if (fuel > 50) fuel = 50;
-    }
-
     public Tyre[] getTyres() {
         return tyres;
-    }
-
-    private void calculatePitStopTime(){
-       this.pitStopTime =  (Math.random() * 5) + 20;
-    }
-
-    public void changeTyres(TyreType type) {
-        calculatePitStopTime();
-        for (int i = 0; i < tyres.length; i++) {
-            switch (type) {
-                case WET -> tyres[i] = new WetCompound();
-                case HARD -> tyres[i] = new HardCompound();
-                case SOFT -> tyres[i] = new SoftCompound();
-            }
-        }
     }
 }
