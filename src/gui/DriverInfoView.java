@@ -4,19 +4,24 @@
 
 package gui;
 
-import java.awt.*;
-import javax.swing.*;
-
 import backend.Car;
 import backend.RaceManager;
-import net.miginfocom.swing.*;
+import net.miginfocom.swing.MigLayout;
 
-/**
- * @author unknown
- */
+import javax.swing.*;
+import java.awt.*;
+
+
 public class DriverInfoView extends JFrame {
     private final RaceManager raceManager;
 
+    /**
+     * Constructor for DriverInfoView
+     *
+     * @param raceManager global raceManager
+     * @param posX        X Location for the Window
+     * @param posY        Y Location for the Window
+     */
     public DriverInfoView(RaceManager raceManager, int posX, int posY) {
         this.raceManager = raceManager;
         initComponents();
@@ -24,13 +29,23 @@ public class DriverInfoView extends JFrame {
         this.setLocation(posX, posY);
     }
 
-    public void loadTelemetry(Car car){
+    /**
+     * Changes the showed Car
+     *
+     * @param car Cardata to show
+     */
+    public void loadTelemetry(Car car) {
         driverName.setText(car.getDriver().getName());
-        driverNumber.setText("#"+car.getDriver().getNumber());
+        driverNumber.setText("#" + car.getDriver().getNumber());
 
         this.setVisible(true);
     }
 
+    /**
+     * JFormDesigner <br>
+     * Component initialization <br>
+     * <strong>DO NOT MODIFY</strong>
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         dialogPane = new JPanel();
@@ -53,16 +68,16 @@ public class DriverInfoView extends JFrame {
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "insets dialog,hidemode 3",
-                    // columns
-                    "[fill]" +
-                    "[fill]" +
-                    "[fill]",
-                    // rows
-                    "[]" +
-                    "[]" +
-                    "[]" +
-                    "[]"));
+                        "insets dialog,hidemode 3",
+                        // columns
+                        "[fill]" +
+                                "[fill]" +
+                                "[fill]",
+                        // rows
+                        "[]" +
+                                "[]" +
+                                "[]" +
+                                "[]"));
 
                 //---- driverNumber ----
                 driverNumber.setText("text");
@@ -77,12 +92,12 @@ public class DriverInfoView extends JFrame {
             //======== buttonBar ========
             {
                 buttonBar.setLayout(new MigLayout(
-                    "insets dialog,alignx right",
-                    // columns
-                    "[button,fill]" +
-                    "[button,fill]",
-                    // rows
-                    null));
+                        "insets dialog,alignx right",
+                        // columns
+                        "[button,fill]" +
+                                "[button,fill]",
+                        // rows
+                        null));
 
                 //---- okButton ----
                 okButton.setText("OK");

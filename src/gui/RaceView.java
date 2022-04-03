@@ -34,6 +34,11 @@ public class RaceView extends JFrame implements ActionListener {
     private final ControlView controlView;
     private final DriverInfoView driverInfoView;
 
+    /**
+     * Constructor for RaceView
+     *
+     * @param raceManager global RaceManager
+     */
     public RaceView(RaceManager raceManager) {
         this.raceManager = raceManager;
 
@@ -97,6 +102,9 @@ public class RaceView extends JFrame implements ActionListener {
         reloadGui();
     }
 
+    /**
+     * Reloads the Table and Labels
+     */
     public void reloadGui() {
         int rowCount = model.getRowCount();
         for (int i = 0; i < rowCount; i++) {
@@ -127,6 +135,12 @@ public class RaceView extends JFrame implements ActionListener {
         labelSafetycarDeployed.setVisible(raceManager.getRace().isSafetycarDeployed());
     }
 
+    /**
+     * Formats the Laptime
+     *
+     * @param laptime unformatted Laptime
+     * @return formatted Laptime
+     */
     public String getFormattedLaptime(double laptime) {
         //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.000");
@@ -141,6 +155,12 @@ public class RaceView extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Formats the Delta
+     *
+     * @param delta unformatted Laptime
+     * @return formatted Laptime
+     */
     public String getFormattedDelta(double delta) {
         //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.0");
@@ -151,6 +171,11 @@ public class RaceView extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * ActionListener entry point
+     *
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonNextLap) {

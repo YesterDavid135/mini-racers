@@ -4,24 +4,29 @@
 
 package gui;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
 import backend.RaceManager;
 import data.Difficulty;
-import net.miginfocom.swing.*;
+import net.miginfocom.swing.MigLayout;
 
-/**
- * @author unknown
- */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 public class StartupView extends JFrame {
 
+    /**
+     * Constructor for StartupView
+     */
     public StartupView() {
         initComponents();
         this.setVisible(true);
     }
 
+    /**
+     * Entry point for ok-button
+     *
+     * @param e ActionEvent
+     */
     private void ok(ActionEvent e) {
         if (!labelPlayerName.getText().isEmpty() && (Integer) spinnerPlayerNumber.getValue() < 100 && (Integer) spinnerPlayerNumber.getValue() > 0) {
             RaceManager raceManager = new RaceManager(labelPlayerName.getText(), (Integer) spinnerPlayerNumber.getValue(), (Difficulty) comboBoxDifficulty.getSelectedItem());
@@ -30,11 +35,20 @@ public class StartupView extends JFrame {
         }
     }
 
+    /**
+     * Entry point for cancel-button
+     *
+     * @param e ActionEvent
+     */
     private void cancel(ActionEvent e) {
-        // TODO add your code here
         System.exit(1);
     }
 
+    /**
+     * JFormDesigner <br>
+     * Component initialization <br>
+     * <strong>DO NOT MODIFY</strong>
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         var dialogPane = new JPanel();
@@ -61,16 +75,16 @@ public class StartupView extends JFrame {
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "insets dialog,hidemode 3,alignx center,gapx 10",
-                    // columns
-                    "[51,fill]" +
-                    "[106,fill]" +
-                    "[fill]",
-                    // rows
-                    "[]" +
-                    "[]" +
-                    "[]" +
-                    "[]"));
+                        "insets dialog,hidemode 3,alignx center,gapx 10",
+                        // columns
+                        "[51,fill]" +
+                                "[106,fill]" +
+                                "[fill]",
+                        // rows
+                        "[]" +
+                                "[]" +
+                                "[]" +
+                                "[]"));
 
                 //---- labelTitle ----
                 labelTitle.setText("Mini Racers");
@@ -87,13 +101,13 @@ public class StartupView extends JFrame {
             //======== buttonBar ========
             {
                 buttonBar.setLayout(new MigLayout(
-                    "insets dialog,alignx right",
-                    // columns
-                    "[button,fill]" +
-                    "[button,fill]" +
-                    "[button,fill]",
-                    // rows
-                    null));
+                        "insets dialog,alignx right",
+                        // columns
+                        "[button,fill]" +
+                                "[button,fill]" +
+                                "[button,fill]",
+                        // rows
+                        null));
 
                 //---- okButton ----
                 okButton.setText("Run");
