@@ -22,6 +22,16 @@ public class Car {
     private ArrayList<LogEntry> log = new ArrayList<>();
     private int currentLap;
 
+    /**
+     * Constructor of Car
+     *
+     * @param driver
+     * @param startPosition
+     * @param laptimeReference
+     * @param racetimeTotal
+     * @param tyres
+     * @param isPlayer
+     */
     public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres, boolean isPlayer) {
         this.driver = driver;
         this.startPosition = startPosition;
@@ -36,10 +46,23 @@ public class Car {
         this.isPlayer = isPlayer;
     }
 
+    /**
+     * update position of car
+     *
+     * @param position
+     */
     public void updatePosition(int position) {
         this.position = position;
     }
 
+    /**
+     * calculate laptime
+     *
+     * @param weather                    weatherstate
+     * @param isSafetycarDeployed        is safetycar deployed
+     * @param safetycarLaptimeMultiplier multiplier, which dictates how slow the safetycar is
+     * @param lastcar                    last car
+     */
     public void updateLaptime(Weather weather, boolean isSafetycarDeployed, double safetycarLaptimeMultiplier, Car lastcar) {
         double staminaInfluence = (1 - driver.getStamina()) / 100;
         double skillInfluence = (1 - driver.getSkill()) / 100;
@@ -67,10 +90,16 @@ public class Car {
         pitStopTime = 0;
     }
 
+    /**
+     * update total racetime
+     */
     public void updateRacetimeTotal() {
         racetimeTotal += laptime;
     }
 
+    /**
+     * calculate fuel
+     */
     public void updateFuel() {
         fuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
         if (fuel <= 0) fuel = 0;
@@ -83,6 +112,12 @@ public class Car {
         }
     }
 
+    /**
+     * update tyres
+     *
+     * @param driverSkill skillvalue of driver
+     * @param weather     weatherstate
+     */
     public void updateTyres(double driverSkill, WeatherType weather) {
         for (Tyre tyre : tyres) {
             tyre.updateTyreCondition(driverSkill);
@@ -102,6 +137,11 @@ public class Car {
         }
     }
 
+    /**
+     * calculate crashchance
+     *
+     * @param weather weatherstate
+     */
     public void updateCrashChance(Weather weather) {
         double staminaInfluence = (1 - driver.getStamina()) / 4; //up to 0.25% per lap
         double skillInfluence = (1 - driver.getSkill()) / 8; //up to 0.125% per lap
@@ -112,6 +152,11 @@ public class Car {
         crashChance = (staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence) * weatherRiskInfluence * wrongTyreInfluence;
     }
 
+    /**
+     * combines all four tyrevalues into one
+     *
+     * @return combined tyreCondition
+     */
     public double getCombinedTyreCondition() {
         double combinedTyreCondition = 0;
         for (Tyre tyre : tyres) {
@@ -120,6 +165,12 @@ public class Car {
         return combinedTyreCondition / 4;
     }
 
+    /**
+     * get laptime influence of wrong wather-tyre combination
+     *
+     * @param weather weatherstate
+     * @return wrongTyreInfluence
+     */
     public double getWrongTyreLaptimeInfluence(Weather weather) {
         double randomValue = Math.random() / 4;
         double wrongTyreInfluence = 1;
@@ -135,7 +186,12 @@ public class Car {
         return wrongTyreInfluence;
     }
 
-
+    /**
+     * get risk influence of wrong wather-tyre combination
+     *
+     * @param weather weatherstate
+     * @return wrongTyreInfluence
+     */
     public double getWrongTyreRiskInfluence(Weather weather) {
         double wrongTyreInfluence = 1;
         if (weather.getWeatherType() == WeatherType.WET) {
@@ -163,6 +219,11 @@ public class Car {
         calculateRefuelTime(liter);
     }
 
+    /**
+     * change tyres of car
+     *
+     * @param type tyre compound
+     */
     public void changeTyres(TyreType type) {
         for (int i = 0; i < tyres.length; i++) {
             switch (type) {
@@ -174,6 +235,9 @@ public class Car {
         calculateChangeTyresTime();
     }
 
+    /**
+     * calculate time needed to change tyres
+     */
     private void calculateChangeTyresTime() {
         if (this.pitStopTime == 0) {
             this.pitStopTime = 20;
@@ -181,6 +245,11 @@ public class Car {
         this.pitStopTime += 2 + (Math.random() * 2);
     }
 
+    /**
+     * calculate time needed to refuel
+     *
+     * @param liter amount of liters to refuel
+     */
     private void calculateRefuelTime(double liter) {
         if (this.pitStopTime == 0) {
             this.pitStopTime = 20;
@@ -188,46 +257,99 @@ public class Car {
         this.pitStopTime += liter / 2;
     }
 
+    /**
+     * Getter of driver
+     *
+     * @return driver
+     */
     public Driver getDriver() {
         return driver;
     }
 
+    /**
+     * Getter of startPosition
+     *
+     * @return start position
+     */
     public int getStartPosition() {
         return startPosition;
     }
 
+    /**
+     * Getter of position
+     *
+     * @return current position
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     * Getter of laptime
+     *
+     * @return current laptime
+     */
     public double getLaptime() {
         return laptime;
     }
 
+    /**
+     * Setter of laptime
+     */
     public void setLaptime(double laptime) {
         this.laptime = laptime;
     }
 
+    /**
+     * Getter of laptimeReference
+     *
+     * @return laptime reference
+     */
     public double getLaptimeReference() {
         return laptimeReference;
     }
 
+    /**
+     * Getter of racetimeTotal
+     *
+     * @return total racetime in seconds
+     */
     public double getRacetimeTotal() {
         return racetimeTotal;
     }
 
+    /**
+     * Getter of fuel
+     *
+     * @return amount of fuel in liters
+     */
     public double getFuel() {
         return fuel;
     }
 
+    /**
+     * Getter of damage
+     *
+     * @return damage
+     */
     public double getDamage() {
         return damage;
     }
 
+    /**
+     * Getter of crashChance
+     *
+     * @return chance of crashing in current lap
+     */
     public double getCrashChance() {
         return crashChance;
     }
 
+    /**
+     * Getter of tyres
+     *
+     * @return list of four tyres
+     */
     public Tyre[] getTyres() {
         return tyres;
     }

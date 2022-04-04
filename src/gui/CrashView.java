@@ -5,12 +5,10 @@ import backend.RaceManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
-public class CrashView extends JFrame implements ActionListener {
+public class CrashView extends JFrame {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel = new JPanel();
@@ -22,7 +20,14 @@ public class CrashView extends JFrame implements ActionListener {
 
     private final RaceManager raceManager;
 
-    public CrashView(RaceManager raceManager, int posX, int posY ){
+    /**
+     * Constructor for CrashView
+     *
+     * @param raceManager global raceManager
+     * @param posX        X Location for the Window
+     * @param posY        Y Location for the Window
+     */
+    public CrashView(RaceManager raceManager, int posX, int posY) {
         this.raceManager = raceManager;
 
         frame.setSize(500, 475);
@@ -45,10 +50,13 @@ public class CrashView extends JFrame implements ActionListener {
         reloadGui();
     }
 
+    /**
+     * Reloads the Crashtable
+     */
     public void reloadGui() {
         int lapsleft = raceManager.getLapsLeft();
 
-        for (Car car : raceManager.getCrashedCarsThisRound()){
+        for (Car car : raceManager.getCrashedCarsThisRound()) {
             Vector<String> row = new Vector<>();
             row.addElement(car.getDriver().getName());
             row.addElement(lapsleft + " Laps");
@@ -58,8 +66,13 @@ public class CrashView extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Rounds and Formats the CrashChance
+     *
+     * @param crashChance unformatted CrashChance
+     * @return formatted CrashChance
+     */
     public String getFormattedCrashChance(double crashChance) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (crashChance < 1) {
             return "0" + df.format(crashChance) + "%";
@@ -68,8 +81,13 @@ public class CrashView extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Rounds and Formats the Fuel
+     *
+     * @param fuel unformatted Fuel
+     * @return formatted Fuel
+     */
     public String getFormattedFuel(double fuel) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (fuel < 1) {
             return "0" + df.format(fuel) + "L";
@@ -78,8 +96,4 @@ public class CrashView extends JFrame implements ActionListener {
         }
     }
 
-        @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }

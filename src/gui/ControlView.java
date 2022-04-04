@@ -13,27 +13,34 @@ import java.text.DecimalFormat;
 
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-//todo: falls es fehler git @noel
-//
-// Project Structure -> Project Settings -> Modules -> Mini Racers -> Dependencies -> + -> library -> Java -> lib/miglayout-swing.jar UND lib/miglayout-core.jar hinzuefüge und denn sätts go
-
 public class ControlView extends JPanel implements ActionListener {
 
     private final JLabel[] tyreLabels = new JLabel[4];
     private final RaceManager raceManager;
 
+    /**
+     * ActionListener entry point
+     *
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == refuelButton){
+        if (e.getSource() == refuelButton) {
             raceManager.refuelCar(fuelSlider.getValue());
-        }else if (e.getSource() == reTyreButton){
+        } else if (e.getSource() == reTyreButton) {
             raceManager.changeTyre((TyreType) tyreList.getSelectedItem());
         }
 
     }
 
-
+    /**
+     * Constructor for ControlView
+     *
+     * @param raceManager global raceManager
+     * @param posX        X Location for the Window
+     * @param posY        Y Location for the Window
+     */
     public ControlView(RaceManager raceManager, int posX, int posY) {
         this.raceManager = raceManager;
         initComponents();
@@ -55,11 +62,17 @@ public class ControlView extends JPanel implements ActionListener {
         updateData();
     }
 
+    /**
+     * Fires the Update-Methods
+     */
     public void updateData() {
         updateTyre();
         updateFuel();
     }
 
+    /**
+     * Updates the Fuellabel and Fuelbar
+     */
     private void updateFuel() {
         double fuel = raceManager.getFuelLeft();
 
@@ -67,28 +80,42 @@ public class ControlView extends JPanel implements ActionListener {
         fuelBar.setValue((int) fuel);
     }
 
+    /**
+     * Updates the Tyre Condition and Tyretype
+     */
     private void updateTyre() {
         Tyre[] tyres = raceManager.getTyres();
 
         tyreType.setText("Current Compound: " + tyres[0].getTyreType().toString());
 
         for (int i = 0; i < 4; i++) {
-            setTyreLabel(tyreLabels[i],tyres[i].getTyreCondition() * 100);
+            setTyreLabel(tyreLabels[i], tyres[i].getTyreCondition() * 100);
         }
     }
 
-    private void setTyreLabel(JLabel tyre, double condition){
-        tyre.setText(getFormattedDouble(condition)  + "%");
+    /**
+     * Set the Tyrecondition and color per Tyre
+     *
+     * @param tyre      Label to change
+     * @param condition Condition the tyre
+     */
+    private void setTyreLabel(JLabel tyre, double condition) {
+        tyre.setText(getFormattedDouble(condition) + "%");
         if (condition >= 50)
-             tyre.setForeground(Color.GREEN);
+            tyre.setForeground(Color.GREEN);
         else if (condition >= 15)
             tyre.setForeground(Color.orange);
         else
             tyre.setForeground(Color.red);
     }
 
+    /**
+     * Rounds and format a double
+     *
+     * @param input double to format
+     * @return formatted double
+     */
     public String getFormattedDouble(double input) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (input < 1) {
             return "0" + df.format(input);
@@ -97,6 +124,11 @@ public class ControlView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * JFormDesigner <br>
+     * Component initialization <br>
+     * <strong>DO NOT MODIFY</strong>
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         panel = new JPanel();
@@ -120,17 +152,17 @@ public class ControlView extends JPanel implements ActionListener {
 
         //======== this ========
         setLayout(new MigLayout(
-            "hidemode 3",
-            // columns
-            "[180,fill]" +
-            "[151,fill]" +
-            "[fill]",
-            // rows
-            "[]" +
-            "[26]" +
-            "[]" +
-            "[104]" +
-            "[]"));
+                "hidemode 3",
+                // columns
+                "[180,fill]" +
+                        "[151,fill]" +
+                        "[fill]",
+                // rows
+                "[]" +
+                        "[26]" +
+                        "[]" +
+                        "[104]" +
+                        "[]"));
 
         //---- tyreType ----
         tyreType.setText("Current: Medium");

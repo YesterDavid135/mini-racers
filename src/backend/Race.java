@@ -11,6 +11,13 @@ public class Race {
     private ArrayList<Double> deltaList;
     private int lapsLeft;
 
+    /**
+     * Contructor of Race
+     *
+     * @param track     Racetrack, which is being used
+     * @param cars      cars, which participate in the race
+     * @param safetycar safetycar of current race
+     */
     public Race(Track track, ArrayList<Car> cars, Safetycar safetycar) {
         this.track = track;
         this.cars = cars;
@@ -19,6 +26,9 @@ public class Race {
         updateDeltaList();
     }
 
+    /**
+     * skip to next lap
+     */
     public void nextLap() {
         lapsLeft--;
         this.crashedCarsThisLap = new ArrayList<>();
@@ -26,6 +36,9 @@ public class Race {
         updateDeltaList();
     }
 
+    /**
+     * update car stats such as fuel, tyres or laptime
+     */
     public void updateCarStats() {
         Car lastcar = null;
         for (Car car : cars) {
@@ -50,6 +63,9 @@ public class Race {
         updateCarPositions();
     }
 
+    /**
+     * update cars list
+     */
     public void updateCarList() {
         boolean isFinished = false;
         while (!isFinished) {
@@ -68,6 +84,9 @@ public class Race {
         }
     }
 
+    /**
+     * update positions of cars
+     */
     public void updateCarPositions() {
         for (int i = 0; i < cars.size(); i++) {
             if (isSafetycarDeployed()) {
@@ -78,6 +97,9 @@ public class Race {
         }
     }
 
+    /**
+     * update values in deltalist
+     */
     public void updateDeltaList() {
         deltaList = new ArrayList<>();
         for (int i = 1; i < cars.size(); i++) {
@@ -86,6 +108,9 @@ public class Race {
         }
     }
 
+    /**
+     * calculate crashes of cars
+     */
     public void checkCrash() {
         for (Car car : cars) {
             double crashChance = car.getCrashChance();
@@ -103,43 +128,87 @@ public class Race {
 
     }
 
+    /**
+     * deploy Safetycar on track
+     */
     public void deploySafetycar() {
         safetycar.deploySafetycar();
         addSafetycarToCarList();
     }
 
+    /**
+     * add safetycar to carlist
+     */
     public void addSafetycarToCarList() {
         cars.add(0, safetycar);
     }
 
+    /**
+     * remove safetycar from carlist
+     */
     public void removeSafetycarFromCarList() {
         cars.remove(0);
     }
 
+    /**
+     * is safetycar deployed
+     *
+     * @return isSafetycarDeployed
+     */
     public boolean isSafetycarDeployed() {
         return safetycar.getLapsDeployedLeft() > 0;
     }
 
+    /**
+     * Getter of lapsLeft
+     *
+     * @return racelaps left
+     */
     public int getLapsLeft() {
         return lapsLeft;
     }
 
+    /**
+     * Getter of cars
+     *
+     * @return list of cars
+     */
     public ArrayList<Car> getCars() {
         return cars;
     }
 
+    /**
+     * Getter of crashedCars
+     *
+     * @return list of crashed cars
+     */
     public ArrayList<Car> getCrashedCars() {
         return crashedCars;
     }
 
+    /**
+     * Getter of crashedCarsThisLap
+     *
+     * @return list of cars, which crashed in the current lap
+     */
     public ArrayList<Car> getCrashedCarsThisLap() {
         return crashedCarsThisLap;
     }
 
+    /**
+     * Getter of deltaList
+     *
+     * @return list of delta values
+     */
     public ArrayList<Double> getDeltaList() {
         return deltaList;
     }
 
+    /**
+     * Getter of track
+     *
+     * @return track
+     */
     public Track getTrack() {
         return track;
     }

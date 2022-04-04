@@ -15,18 +15,36 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
-/**
- * @author unknown
- */
+
 public class DriverInfoView extends JFrame {
     private final RaceManager raceManager;
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Message", "Lap"}, 0);
     private Car currentCar;
-
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JPanel dialogPane;
+    private JPanel contentPanel;
+    private JLabel driverName;
+    private JLabel driverNumber;
+    private JTable logTable;
+    private JLabel positionLabel;
+    private JLabel raceTimeLabel;
+    private JLabel startLabel;
+    private JLabel skilLabel;
+    private JLabel staminaLabel;
+    private JLabel crashLabel;
+    private JLabel tyreType;
+    private JProgressBar tyreBar;
+    private JProgressBar fuelBar;
+    /**
+     * Constructor for DriverInfoView
+     *
+     * @param raceManager global raceManager
+     * @param posX        X Location for the Window
+     * @param posY        Y Location for the Window
+     */
     public DriverInfoView(RaceManager raceManager, int posX, int posY) {
         this.raceManager = raceManager;
         initComponents();
-
 
         this.setLocation(posX, posY);
     }
@@ -90,6 +108,11 @@ public class DriverInfoView extends JFrame {
         }
     }
 
+    /**
+     * JFormDesigner <br>
+     * Component initialization <br>
+     * <strong>DO NOT MODIFY</strong>
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         dialogPane = new JPanel();
@@ -122,22 +145,22 @@ public class DriverInfoView extends JFrame {
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "insets dialog,hidemode 3",
-                    // columns
-                    "[25%,grow,fill]" +
-                    "[25%,grow,fill]" +
-                    "[50%,fill]",
-                    // rows
-                    "[]" +
-                    "[10%]" +
-                    "[:10%:50]" +
-                    "[10%]" +
-                    "[10%]" +
-                    "[:10%:10%]" +
-                    "[0]" +
-                    "[23]" +
-                    "[20]" +
-                    "[30]"));
+                        "insets dialog,hidemode 3",
+                        // columns
+                        "[25%,grow,fill]" +
+                                "[25%,grow,fill]" +
+                                "[50%,fill]",
+                        // rows
+                        "[]" +
+                                "[10%]" +
+                                "[:10%:50]" +
+                                "[10%]" +
+                                "[10%]" +
+                                "[:10%:10%]" +
+                                "[0]" +
+                                "[23]" +
+                                "[20]" +
+                                "[30]"));
 
                 //---- label1 ----
                 label1.setText("Driver History");
@@ -155,7 +178,7 @@ public class DriverInfoView extends JFrame {
                 {
 
                     //---- logTable ----
-                    logTable.setModel(model); 
+                    logTable.setModel(model);
                     scrollPane1.setViewportView(logTable);
                 }
                 contentPanel.add(scrollPane1, "cell 2 1 1 5,alignx right,growx 0");
@@ -211,21 +234,5 @@ public class DriverInfoView extends JFrame {
         setSize(580, 430);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JPanel dialogPane;
-    private JPanel contentPanel;
-    private JLabel driverName;
-    private JLabel driverNumber;
-    private JTable logTable;
-    private JLabel positionLabel;
-    private JLabel raceTimeLabel;
-    private JLabel startLabel;
-    private JLabel skilLabel;
-    private JLabel staminaLabel;
-    private JLabel crashLabel;
-    private JLabel tyreType;
-    private JProgressBar tyreBar;
-    private JProgressBar fuelBar;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
