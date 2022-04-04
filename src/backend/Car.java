@@ -18,6 +18,16 @@ public class Car {
     private double crashChance; //0% = 0, 100% = 100
     private double pitStopTime;
 
+    /**
+     * Constructor of Car
+     *
+     * @param driver
+     * @param startPosition
+     * @param laptimeReference
+     * @param racetimeTotal
+     * @param tyres
+     * @param isPlayer
+     */
     public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres, boolean isPlayer) {
         this.driver = driver;
         this.startPosition = startPosition;
@@ -32,10 +42,23 @@ public class Car {
         this.isPlayer = isPlayer;
     }
 
+    /**
+     * update position of car
+     *
+     * @param position
+     */
     public void updatePosition(int position) {
         this.position = position;
     }
 
+    /**
+     * calculate laptime
+     *
+     * @param weather                    weatherstate
+     * @param isSafetycarDeployed        is safetycar deployed
+     * @param safetycarLaptimeMultiplier multiplier, which dictates how slow the safetycar is
+     * @param lastcar                    last car
+     */
     public void updateLaptime(Weather weather, boolean isSafetycarDeployed, double safetycarLaptimeMultiplier, Car lastcar) {
         double staminaInfluence = (1 - driver.getStamina()) / 100;
         double skillInfluence = (1 - driver.getSkill()) / 100;
@@ -63,10 +86,16 @@ public class Car {
         pitStopTime = 0;
     }
 
+    /**
+     * update total racetime
+     */
     public void updateRacetimeTotal() {
         racetimeTotal += laptime;
     }
 
+    /**
+     * calculate fuel
+     */
     public void updateFuel() {
         fuel = fuel - 1 - ((1 - driver.getSkill()) / 5);
         if (fuel <= 0) fuel = 0;
@@ -79,6 +108,12 @@ public class Car {
         }
     }
 
+    /**
+     * update tyres
+     *
+     * @param driverSkill skillvalue of driver
+     * @param weather     weatherstate
+     */
     public void updateTyres(double driverSkill, WeatherType weather) {
         for (Tyre tyre : tyres) {
             tyre.updateTyreCondition(driverSkill);
@@ -90,14 +125,18 @@ public class Car {
                 System.out.println("Pitstop " + driver.getName() + " " + getCombinedTyreCondition());
                 if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95) {
                     changeTyres(TyreType.WET);
-                }
-                else {
+                } else {
                     changeTyres(Math.random() >= 0.5 ? TyreType.HARD : TyreType.SOFT);
                 }
             }
         }
     }
 
+    /**
+     * calculate crashchance
+     *
+     * @param weather weatherstate
+     */
     public void updateCrashChance(Weather weather) {
         double staminaInfluence = (1 - driver.getStamina()) / 4; //up to 0.25% per lap
         double skillInfluence = (1 - driver.getSkill()) / 8; //up to 0.125% per lap
@@ -108,6 +147,11 @@ public class Car {
         crashChance = (staminaInfluence + skillInfluence + damageInluence + tyreConditionInfluence) * weatherRiskInfluence * wrongTyreInfluence;
     }
 
+    /**
+     * combines all four tyrevalues into one
+     *
+     * @return combined tyreCondition
+     */
     public double getCombinedTyreCondition() {
         double combinedTyreCondition = 0;
         for (Tyre tyre : tyres) {
@@ -116,6 +160,12 @@ public class Car {
         return combinedTyreCondition / 4;
     }
 
+    /**
+     * get laptime influence of wrong wather-tyre combination
+     *
+     * @param weather weatherstate
+     * @return wrongTyreInfluence
+     */
     public double getWrongTyreLaptimeInfluence(Weather weather) {
         double randomValue = Math.random() / 4;
         double wrongTyreInfluence = 1;
@@ -131,7 +181,12 @@ public class Car {
         return wrongTyreInfluence;
     }
 
-
+    /**
+     * get risk influence of wrong wather-tyre combination
+     *
+     * @param weather weatherstate
+     * @return wrongTyreInfluence
+     */
     public double getWrongTyreRiskInfluence(Weather weather) {
         double wrongTyreInfluence = 1;
         if (weather.getWeatherType() == WeatherType.WET) {
@@ -159,6 +214,11 @@ public class Car {
         calculateRefuelTime(liter);
     }
 
+    /**
+     * change tyres of car
+     *
+     * @param type tyre compound
+     */
     public void changeTyres(TyreType type) {
         for (int i = 0; i < tyres.length; i++) {
             switch (type) {
@@ -169,6 +229,7 @@ public class Car {
         }
         calculateChangeTyresTime();
     }
+
 
     private void calculateChangeTyresTime() {
         if (this.pitStopTime == 0) {
