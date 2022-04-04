@@ -116,7 +116,6 @@ public class ControlView extends JPanel implements ActionListener {
      * @return formatted double
      */
     public String getFormattedDouble(double input) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (input < 1) {
             return "0" + df.format(input);

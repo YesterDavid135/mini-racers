@@ -142,7 +142,6 @@ public class RaceView extends JFrame implements ActionListener {
      * @return formatted Laptime
      */
     public String getFormattedLaptime(double laptime) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.000");
         int laptimeMin = (int) laptime / 60;
         double laptimeSec = (laptime) - (60 * laptimeMin);
@@ -162,7 +161,6 @@ public class RaceView extends JFrame implements ActionListener {
      * @return formatted Laptime
      */
     public String getFormattedDelta(double delta) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.0");
         if (delta < 1) {
             return "+0" + df.format(delta);

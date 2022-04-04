@@ -73,7 +73,6 @@ public class CrashView extends JFrame {
      * @return formatted CrashChance
      */
     public String getFormattedCrashChance(double crashChance) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (crashChance < 1) {
             return "0" + df.format(crashChance) + "%";
@@ -89,7 +88,6 @@ public class CrashView extends JFrame {
      * @return formatted Fuel
      */
     public String getFormattedFuel(double fuel) {
-        //TODO: Replace "DecimalFormat" with method, which doesn't round the given value
         DecimalFormat df = new DecimalFormat("#.00");
         if (fuel < 1) {
             return "0" + df.format(fuel) + "L";
