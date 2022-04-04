@@ -118,6 +118,9 @@ public class Race {
             if (crashChance >= randomValue || car.getFuel() == 0) {
                 crashedCarsThisLap.add(car);
                 crashedCars.add(car);
+                if (car.isPlayer()) {
+                    System.out.println("You crashed!");
+                }
             }
         }
         if (crashedCarsThisLap.size() > 0) deploySafetycar();

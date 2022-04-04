@@ -360,4 +360,8 @@ public class Car {
     public ArrayList<LogEntry> getLog() {
         return log;
     }
+
+    public boolean isPlayer() {
+        return isPlayer;
+    }
 }
