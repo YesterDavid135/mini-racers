@@ -56,8 +56,8 @@ public class DriverInfoView extends JFrame {
         tyreBar.setValue((int) (currentCar.getCombinedTyreCondition() * 100));
         fuelBar.setValue((int) Math.round(currentCar.getFuel()));
         startLabel.setText("<html> Startposition <br>" + currentCar.getStartPosition());
-        skilLabel.setText("<html> Driver Skill <br>" + (int) (currentCar.getDriver().getSkill() * 100));
-        staminaLabel.setText("<html> Driver Stamina <br>" + (int) (currentCar.getDriver().getStamina() * 100));
+        skilLabel.setText("<html> Driver Skill <br>" + (int) (currentCar.getDriver().getSkill() * 100) + "%");
+        staminaLabel.setText("<html> Driver Stamina <br>" + (int) (currentCar.getDriver().getStamina() * 100) + "%");
         crashLabel.setText("<html> Crash Probability <br>" + getFormattedCrashChance(currentCar.getCrashChance()));
 
 
