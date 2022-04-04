@@ -4,16 +4,16 @@
 
 package gui;
 
-import java.awt.*;
-import java.text.DecimalFormat;
-import java.util.Vector;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import backend.Car;
 import backend.LogEntry;
 import backend.RaceManager;
-import net.miginfocom.swing.*;
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.util.Vector;
 
 /**
  * @author unknown
@@ -28,34 +28,41 @@ public class DriverInfoView extends JFrame {
         initComponents();
 
 
-
         this.setLocation(posX, posY);
     }
-    public void LoadCar(Car car){
+
+    /**
+     * Loads new Car data
+     *
+     * @param car Car to load
+     */
+    public void LoadCar(Car car) {
         this.currentCar = car;
         loadTelemetry();
         this.setVisible(true);
     }
 
-    public void loadTelemetry(){
+    /**
+     * Loads Telemetry Data and show on GUI
+     */
+    public void loadTelemetry() {
         if (currentCar == null) return;
         driverName.setText(currentCar.getDriver().getName());
-        driverNumber.setText("#"+currentCar.getDriver().getNumber());
+        driverNumber.setText("#" + currentCar.getDriver().getNumber());
         positionLabel.setText("P " + currentCar.getPosition());
         raceTimeLabel.setText(getFormattedTime(currentCar.getRacetimeTotal()));
-        tyreType.setText("Tyre Compound: " +currentCar.getTyres()[0].getTyreType().toString());
-        tyreBar.setValue((int)(currentCar.getCombinedTyreCondition()*100));
+        tyreType.setText("Tyre Compound: " + currentCar.getTyres()[0].getTyreType().toString());
+        tyreBar.setValue((int) (currentCar.getCombinedTyreCondition() * 100));
         fuelBar.setValue((int) Math.round(currentCar.getFuel()));
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(0);
-        }
+        model.setRowCount(0);
         for (LogEntry entry : currentCar.getLog()){
             Vector<String> row = new Vector<>();
             row.addElement(entry.getMessage());
             row.addElement(entry.getLap() + "");
             model.addRow(row);
         }
+
     }
 
     /**
