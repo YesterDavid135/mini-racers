@@ -19,6 +19,11 @@ import java.util.Scanner;
 
 public class DataManager {
 
+    /**
+     * read drivers from textfile
+     *
+     * @return list of drivers
+     */
     public ArrayList<Driver> readDrivers() {
         ArrayList<Driver> drivers = new ArrayList<>();
         try {
@@ -40,7 +45,11 @@ public class DataManager {
         return drivers;
     }
 
-    //TODO: Optimize method
+    /**
+     * read a random safetycar driver from textfile
+     *
+     * @return safetycar driver
+     */
     public Driver readRandomSafetycarDriver() {
         ArrayList<Driver> drivers = new ArrayList<>();
         try {
@@ -62,7 +71,11 @@ public class DataManager {
         return drivers.get(0);
     }
 
-    //TODO: Optimize method
+    /**
+     * read random track from textfile
+     *
+     * @return track
+     */
     public Track readRandomTrack() {
         ArrayList<Track> tracks = new ArrayList<>();
         try {
@@ -86,6 +99,14 @@ public class DataManager {
         return tracks.get(0);
     }
 
+    /**
+     * generate cars
+     *
+     * @param laptimeReference laptime reference for all cars
+     * @param weatherType      weatherstate
+     * @param playerNumber     number of player
+     * @return list of cars
+     */
     public ArrayList<Car> generateCars(double laptimeReference, WeatherType weatherType, int playerNumber) {
         ArrayList<Driver> drivers = readDrivers();
         ArrayList<Car> cars = new ArrayList<>();
@@ -98,16 +119,39 @@ public class DataManager {
         return cars;
     }
 
+    /**
+     * generate player car
+     *
+     * @param laptimeReference laptime reference
+     * @param weatherType      weatherstate
+     * @param playerName       name of player
+     * @param playerNumber     number of player
+     * @param playerDifficulty game difficulty
+     * @param cars             list of cars
+     * @return player car
+     */
     public Car generatePlayerCar(double laptimeReference, WeatherType weatherType, String playerName, int playerNumber, Difficulty playerDifficulty, ArrayList<Car> cars) {
         Driver driver = new Driver(playerName, playerNumber, playerDifficulty);
         return new Car(driver, cars.size() + 1, laptimeReference, cars.get(cars.size() - 1).getRacetimeTotal() + 0.5, generateTyres(weatherType), true);
     }
 
+    /**
+     * generates safetycar
+     *
+     * @param laptimeReference laptime reference
+     * @param weatherType      weatherstate
+     * @return safetycar
+     */
     public Safetycar generateSafetycar(double laptimeReference, WeatherType weatherType) {
         Driver driver = readRandomSafetycarDriver();
         return new Safetycar(driver, 0, laptimeReference, 0, generateTyres(weatherType), 1.4);
     }
 
+    /**
+     * generate random weatherstate
+     *
+     * @return weather object
+     */
     public Weather generateRandomWeather() {
         double randomValue = Math.random();
         if (randomValue > 0.6) {
@@ -119,6 +163,11 @@ public class DataManager {
         }
     }
 
+    /**
+     * generate random difficulty
+     *
+     * @return difficulty
+     */
     public Difficulty generateDifficulty() {
         double randomValue = Math.random();
         if (randomValue < 0.3) {
@@ -132,6 +181,12 @@ public class DataManager {
         }
     }
 
+    /**
+     * generate list of four tyres
+     *
+     * @param weatherType
+     * @return list of tyres
+     */
     public Tyre[] generateTyres(WeatherType weatherType) {
         Tyre[] tyres = new Tyre[4];
         if (weatherType == WeatherType.WET) {
@@ -153,11 +208,17 @@ public class DataManager {
         return tyres;
     }
 
+    /**
+     * save race data
+     */
     //TODO: Implementation
     public void saveRaceData() {
 
     }
 
+    /**
+     * load race data
+     */
     //TODO: Implementation
     public void loadRaceData() {
 
