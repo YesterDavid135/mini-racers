@@ -106,7 +106,6 @@ public class Car {
         else if (fuel < 5 && !isPlayer) {
             double refuelChance = Math.random();
             if (refuelChance > 0.25) {
-                log.add(new LogEntry("Refuel " , currentLap));
                 refuel((Math.random() * 25) + 5);
             }
         }
@@ -126,8 +125,6 @@ public class Car {
             double pitChance = Math.random();
             if (pitChance > 0.6) {
                 double weatherDumbTyreChance = Math.random();
-                log.add(new LogEntry("Tyrechange ", currentLap));
-
                 if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95) {
                     changeTyres(TyreType.WET);
                 } else {
@@ -213,6 +210,7 @@ public class Car {
      * @param liter how much fuel to add
      */
     public void refuel(double liter) {
+        log.add(new LogEntry("Refuel ", currentLap));
         if (liter <= 0) return;
         fuel += liter;
         if (fuel > 50) fuel = 50;
@@ -225,6 +223,7 @@ public class Car {
      * @param type tyre compound
      */
     public void changeTyres(TyreType type) {
+        log.add(new LogEntry("Tyrechange ", currentLap));
         for (int i = 0; i < tyres.length; i++) {
             switch (type) {
                 case WET -> tyres[i] = new WetCompound();
