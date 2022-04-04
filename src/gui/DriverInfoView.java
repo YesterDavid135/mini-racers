@@ -20,21 +20,8 @@ public class DriverInfoView extends JFrame {
     private final RaceManager raceManager;
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Message", "Lap"}, 0);
     private Car currentCar;
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JPanel dialogPane;
-    private JPanel contentPanel;
-    private JLabel driverName;
-    private JLabel driverNumber;
-    private JTable logTable;
-    private JLabel positionLabel;
-    private JLabel raceTimeLabel;
-    private JLabel startLabel;
-    private JLabel skilLabel;
-    private JLabel staminaLabel;
-    private JLabel crashLabel;
-    private JLabel tyreType;
-    private JProgressBar tyreBar;
-    private JProgressBar fuelBar;
+
+
     /**
      * Constructor for DriverInfoView
      *
@@ -75,7 +62,7 @@ public class DriverInfoView extends JFrame {
         startLabel.setText("<html> Startposition <br>" + currentCar.getStartPosition());
         skilLabel.setText("<html> Driver Skill <br>" + (int) (currentCar.getDriver().getSkill() * 100));
         staminaLabel.setText("<html> Driver Stamina <br>" + (int) (currentCar.getDriver().getStamina() * 100));
-        crashLabel.setText("<html> Crash Probability <br>" + (int) currentCar.getCrashChance() + "%");
+        crashLabel.setText("<html> Crash Probability <br>" + getFormattedCrashChance(currentCar.getCrashChance()));
 
 
         model.setRowCount(0);
@@ -105,6 +92,21 @@ public class DriverInfoView extends JFrame {
             return timeMin + ":0" + df.format(timeSec);
         } else {
             return timeMin + ":" + df.format(timeSec);
+        }
+    }
+
+    /**
+     * Rounds and Formats the CrashChance
+     *
+     * @param crashChance unformatted CrashChance
+     * @return formatted CrashChance
+     */
+    public String getFormattedCrashChance(double crashChance) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (crashChance < 1) {
+            return "0" + df.format(crashChance) + "%";
+        } else {
+            return df.format(crashChance) + "%";
         }
     }
 
@@ -234,5 +236,21 @@ public class DriverInfoView extends JFrame {
         setSize(580, 430);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JPanel dialogPane;
+    private JPanel contentPanel;
+    private JLabel driverName;
+    private JLabel driverNumber;
+    private JTable logTable;
+    private JLabel positionLabel;
+    private JLabel raceTimeLabel;
+    private JLabel startLabel;
+    private JLabel skilLabel;
+    private JLabel staminaLabel;
+    private JLabel crashLabel;
+    private JLabel tyreType;
+    private JProgressBar tyreBar;
+    private JProgressBar fuelBar;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
