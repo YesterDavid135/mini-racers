@@ -208,19 +208,4 @@ public class DataManager {
         return tyres;
     }
 
-    /**
-     * save race data
-     */
-    //TODO: Implementation
-    public void saveRaceData() {
-
-    }
-
-    /**
-     * load race data
-     */
-    //TODO: Implementation
-    public void loadRaceData() {
-
-    }
 }
