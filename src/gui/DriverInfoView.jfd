@@ -7,25 +7,93 @@ new FormModel {
 			name: "this"
 			"title": "Driver Info"
 			"$locationPolicy": 2
+			"$sizePolicy": 1
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "dialogPane"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "insets dialog,hidemode 3"
-					"$columnConstraints": "[fill][fill][fill]"
-					"$rowConstraints": "[][][][]"
+					"$columnConstraints": "[25%,grow,fill][25%,grow,fill][50%,fill]"
+					"$rowConstraints": "[][118][][20][20][30]"
 				} ) {
 					name: "contentPanel"
 					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "driverNumber"
-						"text": "text"
+						name: "label1"
+						"text": "Driver History"
+						auxiliary() {
+							"JavaCodeGenerator.variableLocal": true
+						}
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 2 0"
+						"value": "cell 2 0,alignx center,growx 0"
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "driverName"
-						"text": "text"
+						"text": "Name"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 2 1"
+						"value": "cell 0 1,alignx center,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "driverNumber"
+						"text": "Number"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 1,alignx center,growx 0"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						auxiliary() {
+							"JavaCodeGenerator.variableLocal": true
+						}
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "logTable"
+							auxiliary() {
+								"JavaCodeGenerator.postInitCode": "logTable.setModel(model); "
+							}
+						} )
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 1 1 2"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "positionLabel"
+						"text": "Position"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 2,align center top,grow 0 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "raceTimeLabel"
+						"text": "TotalRaceTime"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 2,align center top,grow 0 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "tyreType"
+						"text": "TyreType"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 3 2 1,alignx center,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Fuel:"
+						auxiliary() {
+							"JavaCodeGenerator.variableLocal": true
+						}
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 3,alignx center,growx 0"
+					} )
+					add( new FormComponent( "javax.swing.JProgressBar" ) {
+						name: "tyreBar"
+						"value": 10
+						"foreground": &Color0 new java.awt.Color( 0, 204, 51, 255 )
+						"stringPainted": true
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 5 2 1"
+					} )
+					add( new FormComponent( "javax.swing.JProgressBar" ) {
+						name: "fuelBar"
+						"maximum": 50
+						"value": 10
+						"foreground": #Color0
+						"stringPainted": true
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 2 5"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"
@@ -34,6 +102,7 @@ new FormModel {
 					"$layoutConstraints": "insets dialog,alignx right"
 					"$columnConstraints": "[button,fill][button,fill]"
 					"$rowSpecs": "[fill]"
+					"$rowConstraints": "[]"
 				} ) {
 					name: "buttonBar"
 					add( new FormComponent( "javax.swing.JButton" ) {
@@ -56,7 +125,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 580, 430 )
 		} )
 	}
 }

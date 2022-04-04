@@ -4,6 +4,8 @@ import backend.tyre.*;
 import backend.weather.Weather;
 import backend.weather.WeatherType;
 
+import java.util.ArrayList;
+
 public class Car {
     private final Driver driver;
     private final boolean isPlayer;
@@ -17,6 +19,8 @@ public class Car {
     private Tyre[] tyres;
     private double crashChance; //0% = 0, 100% = 100
     private double pitStopTime;
+    private ArrayList<LogEntry> log = new ArrayList<>();
+    private int currentLap;
 
     public Car(Driver driver, int startPosition, double laptimeReference, double racetimeTotal, Tyre[] tyres, boolean isPlayer) {
         this.driver = driver;
@@ -73,7 +77,7 @@ public class Car {
         else if (fuel < 5 && !isPlayer) {
             double refuelChance = Math.random();
             if (refuelChance > 0.25) {
-                System.out.println("Refueled " + driver.getName() + " " + getFuel()); //todo
+                log.add(new LogEntry("Refuel " , currentLap));
                 refuel((Math.random() * 25) + 5);
             }
         }
@@ -87,11 +91,11 @@ public class Car {
             double pitChance = Math.random();
             if (pitChance > 0.6) {
                 double weatherDumbTyreChance = Math.random();
-                System.out.println("Pitstop " + driver.getName() + " " + getCombinedTyreCondition());
+                log.add(new LogEntry("Tyrechange ", currentLap));
+
                 if (weather == WeatherType.WET && weatherDumbTyreChance < 0.95) {
                     changeTyres(TyreType.WET);
-                }
-                else {
+                } else {
                     changeTyres(Math.random() >= 0.5 ? TyreType.HARD : TyreType.SOFT);
                 }
             }
@@ -226,5 +230,13 @@ public class Car {
 
     public Tyre[] getTyres() {
         return tyres;
+    }
+
+    public void updateCurrentLap(int lap) {
+        this.currentLap = lap;
+    }
+
+    public ArrayList<LogEntry> getLog() {
+        return log;
     }
 }

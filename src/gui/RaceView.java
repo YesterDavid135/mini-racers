@@ -74,7 +74,7 @@ public class RaceView extends JFrame implements ActionListener {
                 String s = (String) raceTable.getValueAt(i, 2);
                 s = s.substring(1);
                 int carNumber = Integer.parseInt(s);
-                for (Car car :raceManager.getRace().getCars()) if (car.getDriver().getNumber() == carNumber) driverInfoView.loadTelemetry(car);
+                for (Car car :raceManager.getRace().getCars()) if (car.getDriver().getNumber() == carNumber) driverInfoView.LoadCar(car);
             };
         });
         panel.add(scrollPane);
@@ -158,6 +158,7 @@ public class RaceView extends JFrame implements ActionListener {
             reloadGui();
             crashView.reloadGui();
             controlView.updateData();
+            driverInfoView.loadTelemetry();
         }
     }
 }

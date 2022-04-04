@@ -35,6 +35,7 @@ public class Race {
             car.updateLaptime(track.getWeather(), isSafetycarDeployed(), safetycar.getSafetycarLaptimeMultiplier(), lastcar);
             car.updateCrashChance(track.getWeather());
             car.updateRacetimeTotal();
+            car.updateCurrentLap(track.getAmountLaps() - lapsLeft);
             lastcar = car;
         }
         if (isSafetycarDeployed()) {
