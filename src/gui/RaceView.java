@@ -97,7 +97,7 @@ public class RaceView extends JFrame implements ActionListener {
                 frame.getX(),
                 frame.getY() + frame.getHeight() + 1);
 
-        driverInfoView = new DriverInfoView(raceManager, frame.getX() + frame.getWidth() + 1,
+        driverInfoView = new DriverInfoView(frame.getX() + frame.getWidth() + 1,
                 frame.getY() + frame.getHeight() + 1);
         reloadGui();
     }

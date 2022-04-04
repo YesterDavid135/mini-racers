@@ -6,7 +6,6 @@ package gui;
 
 import backend.Car;
 import backend.LogEntry;
-import backend.RaceManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -17,7 +16,6 @@ import java.util.Vector;
 
 
 public class DriverInfoView extends JFrame {
-    private final RaceManager raceManager;
     private final DefaultTableModel model = new DefaultTableModel(new Object[]{"Message", "Lap"}, 0);
     private Car currentCar;
 
@@ -25,12 +23,10 @@ public class DriverInfoView extends JFrame {
     /**
      * Constructor for DriverInfoView
      *
-     * @param raceManager global raceManager
-     * @param posX        X Location for the Window
-     * @param posY        Y Location for the Window
+     * @param posX X Location for the Window
+     * @param posY Y Location for the Window
      */
-    public DriverInfoView(RaceManager raceManager, int posX, int posY) {
-        this.raceManager = raceManager;
+    public DriverInfoView(int posX, int posY) {
         initComponents();
 
         this.setLocation(posX, posY);
