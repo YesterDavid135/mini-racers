@@ -57,7 +57,7 @@ public class DriverInfoView extends JFrame {
         startLabel.setText("<html> Startposition <br>" + currentCar.getStartPosition());
         skilLabel.setText("<html> Driver Skill <br>" + (int) (currentCar.getDriver().getSkill() * 100));
         staminaLabel.setText("<html> Driver Stamina <br>" + (int) (currentCar.getDriver().getStamina() * 100));
-        crashLabel.setText("<html> Crash Probability <br>" + (int) (currentCar.getCrashChance() * 100) + "%");
+        crashLabel.setText("<html> Crash Probability <br>" + (int) currentCar.getCrashChance() + "%");
 
 
         model.setRowCount(0);
